@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Roadmap: Pokénex Pro (Next.js + Clean Architecture)
 
-## Getting Started
+### Fase 1: Cimientos y Data (El Core) ✅
 
-First, run the development server:
+- [x] Configuración de capas: Fetcher (API), Adaptador y Servicio.
+- [x] Tipado estricto: Interfaces para la API y Tipos de Dominio.
+- [x] Estrategia de Caché: Implementación de ISR (Incremental Static Regeneration).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Fase 2: El Detalle del Pokémon (Visualización) 🎨
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [ ] Imagen de alta calidad: Integración de official-artwork con el componente <Image /> de Next.js.
+- [ ] Diccionario de colores: Mapeo de tipos (fire, water, etc.) a colores de Tailwind.
+- [ ] Manejo de estados: Implementación de notFound() para IDs inexistentes.
+- [ ] Datos físicos: Conversión de unidades (Altura en metros, Peso en kg).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Fase 3: Optimización y UX ⚡
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- [ ] Static Params: Generación estática de los primeros 151 Pokémones (generateStaticParams).
+- [ ] Skeleton Loader: Pantalla de carga elegante mientras se genera la página.
+- [ ] SEO dinámico: Configuración de generateMetadata para que cada Pokémon tenga su título propio.
 
-## Learn More
+### Fase 4: El Listado (Home) 🏠
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [ ] Infinite Scroll o Paginación: Carga eficiente de la lista principal.
+- [ ] Buscador en tiempo real: Filtrado por nombre o ID.
