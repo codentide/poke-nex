@@ -22,12 +22,15 @@ type ApiPokemonCries = {
 
 type ApiPokemonSprites = {
   other: {
-    'official-artwork'?: {
+    'official-artwork': {
       front_default: ApiSprite
       front_shiny: ApiSprite
     }
-    showdown: {
-      [K in ShowdownSpriteKeys]: ApiSprite
+    // showdown: {
+    //   [K in ShowdownSpriteKeys]: ApiSprite
+    // }
+    home: {
+      [K in HomeSpriteKeys]: ApiSprite
     }
   }
 }
@@ -80,5 +83,7 @@ type ShowdownSpriteKeys =
   | 'front_female'
   | 'front_shiny'
   | 'front_shiny_female'
+
+type HomeSpriteKeys = 'front_default' | 'front_female' | 'front_shiny' | 'front_shiny_female'
 
 type ApiSprite = string | null

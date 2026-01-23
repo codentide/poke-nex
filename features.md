@@ -8,10 +8,10 @@
 
 ### Fase 2: El Detalle del Pokémon (Visualización) 🎨
 
-- [ ] Imagen de alta calidad: Integración de official-artwork con el componente <Image /> de Next.js.
-- [ ] Diccionario de colores: Mapeo de tipos (fire, water, etc.) a colores de Tailwind.
-- [ ] Manejo de estados: Implementación de notFound() para IDs inexistentes.
-- [ ] Datos físicos: Conversión de unidades (Altura en metros, Peso en kg).
+- [x] Imagen de alta calidad: Integración de official-artwork con el componente <Image /> de Next.js.
+- [x] Diccionario de colores: Mapeo de tipos (fire, water, etc.) a colores de Tailwind.
+- [x] Manejo de estados: Implementación de notFound() para IDs inexistentes.
+- [x] Datos físicos: Conversión de unidades (Altura en metros, Peso en kg).
 
 ### Fase 3: Optimización y UX ⚡
 
