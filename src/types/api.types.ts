@@ -1,34 +1,48 @@
-export type ApiPokemonResponse = {
-  id: number
-  name: string
-  types: ApiPokemonType[]
-  stats: ApiPokemonStat[]
-  height: number
-  weight: number
-  sprites: ApiPokemonSprites
-
-  // abilities: ApiPokemonAbility[]
-  // forms: ApiPokemonForm[]
-  // base_experience: number
-  // game_indices: ApiGameIndex[]
-  // location_area_encounters: string
-  // cries: ApiPokemonCries
-}
-
 type ApiPokemonCries = {
   latest: string
   legacy: string
 }
 
+// type ApiPokemonAbility = {
+//   ability: {
+//     name: string
+//     url: string
+//   }
+//   is_hidden: boolean
+//   slot: number
+// }
+
+// type ApiPokemonForm = {
+//   name: string
+//   url: string
+// }
+
+// type ApiGameIndex = {
+//   game_index: number
+//   version: {
+//     name: string
+//     url: string
+//   }
+// }
+
+// type ShowdownSpriteKeys =
+//   | 'back_default'
+//   | 'back_female'
+//   | 'back_shiny'
+//   | 'back_shiny_female'
+//   | 'front_default'
+//   | 'front_female'
+//   | 'front_shiny'
+//   | 'front_shiny_female'
+
+type HomeSpriteKeys = 'front_default' | 'front_female' | 'front_shiny' | 'front_shiny_female'
+type ApiSprite = string | null
 type ApiPokemonSprites = {
   other: {
     'official-artwork': {
       front_default: ApiSprite
       front_shiny: ApiSprite
     }
-    // showdown: {
-    //   [K in ShowdownSpriteKeys]: ApiSprite
-    // }
     home: {
       [K in HomeSpriteKeys]: ApiSprite
     }
@@ -52,38 +66,26 @@ type ApiPokemonStat = {
   }
 }
 
-type ApiPokemonAbility = {
-  ability: {
-    name: string
-    url: string
-  }
-  is_hidden: boolean
-  slot: number
+export type ApiPokemonListResponse = {
+  count: number
+  next: string | null
+  previous: string | null
+  results: { name: string; url: string }[]
 }
 
-type ApiPokemonForm = {
+export type ApiPokemonResponse = {
+  id: number
   name: string
-  url: string
+  types: ApiPokemonType[]
+  stats: ApiPokemonStat[]
+  height: number
+  weight: number
+  sprites: ApiPokemonSprites
+
+  // abilities: ApiPokemonAbility[]
+  // forms: ApiPokemonForm[]
+  // base_experience: number
+  // game_indices: ApiGameIndex[]
+  // location_area_encounters: string
+  // cries: ApiPokemonCries
 }
-
-type ApiGameIndex = {
-  game_index: number
-  version: {
-    name: string
-    url: string
-  }
-}
-
-type ShowdownSpriteKeys =
-  | 'back_default'
-  | 'back_female'
-  | 'back_shiny'
-  | 'back_shiny_female'
-  | 'front_default'
-  | 'front_female'
-  | 'front_shiny'
-  | 'front_shiny_female'
-
-type HomeSpriteKeys = 'front_default' | 'front_female' | 'front_shiny' | 'front_shiny_female'
-
-type ApiSprite = string | null

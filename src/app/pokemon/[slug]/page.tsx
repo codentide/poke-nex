@@ -1,11 +1,17 @@
 import { TYPE_COLORS } from '@/constants/pokemon.constant'
-import { getPokemonDetail } from '@/services/pokemon.service'
+import { getPokemonDetail, getPokemonList } from '@/services/pokemon.service'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
-export default async function PokemonDetailPage({ params }: { params: { id: string } }) {
-  const { id } = await params
-  const pokemonData = await getPokemonDetail(id)
+export async function generateStaticParams() {
+  const pokemonList = await getPokemonList()
+
+  return pokemonList.map((pokemon) => ({ slug: pokemon.name }))
+}
+
+export default async function PokemonDetailPage({ params }: { params: { slug: string } }) {
+  const { slug } = await params
+  const pokemonData = await getPokemonDetail(slug)
 
   if (!pokemonData) notFound()
 
@@ -23,10 +29,11 @@ export default async function PokemonDetailPage({ params }: { params: { id: stri
           <div className="relative w-64 h-64 drop-shadow-2xl">
             <Image
               src={pokemonData.assets.home.default.front}
-              alt={pokemonData.name}
+              alt={pokemonData.name + ' image'}
               fill
               className="object-contain"
               priority
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
         </div>
