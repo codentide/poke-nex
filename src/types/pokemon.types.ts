@@ -1,5 +1,9 @@
-type PokemonType = {
-  name: string
+import { POKEMON_TYPES, SORTS } from '@/constants/pokemon.constant'
+
+export type PokeSort = (typeof SORTS)[keyof typeof SORTS]
+export type PokeType = {
+  name: (typeof POKEMON_TYPES)[keyof typeof POKEMON_TYPES]
+  url: string
 }
 
 type SpriteGroup = {
@@ -11,7 +15,7 @@ export interface Pokemon {
   name: string
   height: number // "Stored in meters"
   weight: number // "Stored in kilograms"
-  types: PokemonType[]
+  types: PokeType[]
   assets: {
     official: {
       default: SpriteGroup

@@ -14,3 +14,10 @@ export const getPokemonList = async () => {
   if (!pokemonList || pokemonList.results.length === 0) return []
   return pokemonList.results
 }
+
+export const getPokemonDetailList = async () => {
+  const keyList = await getPokemonList()
+  const promises = keyList.map(({ name }) => getPokemonDetail(name))
+  const result = await Promise.all(promises)
+  return result.filter((pokemon) => pokemon != null)
+}

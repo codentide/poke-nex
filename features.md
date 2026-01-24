@@ -6,20 +6,23 @@
 - [x] Tipado estricto: Interfaces para la API y Tipos de Dominio.
 - [x] Estrategia de Caché: Implementación de ISR (Incremental Static Regeneration).
 
-### Fase 2: El Detalle del Pokémon (Visualización) 🎨
+### Fase 2: El Detalle del Pokémon (Visualización) ✅
 
-- [x] Imagen de alta calidad: Integración de official-artwork con el componente <Image /> de Next.js.
-- [x] Diccionario de colores: Mapeo de tipos (fire, water, etc.) a colores de Tailwind.
-- [x] Manejo de estados: Implementación de notFound() para IDs inexistentes.
+- [x] Imagen de alta calidad: Integración de official-artwork.
+- [x] Diccionario de colores: Mapeo de tipos a colores de Tailwind.
+- [x] Manejo de errores: Implementación de notFound() para slugs inexistentes.
 - [x] Datos físicos: Conversión de unidades (Altura en metros, Peso en kg).
 
-### Fase 3: Optimización y UX ⚡
+Fase 3: Optimización y SSG ⚡
 
-- [ ] Static Params: Generación estática de los primeros 151 Pokémones (generateStaticParams).
-- [ ] Skeleton Loader: Pantalla de carga elegante mientras se genera la página.
-- [ ] SEO dinámico: Configuración de generateMetadata para que cada Pokémon tenga su título propio.
+- [x] Static Params: Generación estática basada en slug (nombres).
+- [x] Validación de Build: Verificación de los 151 paths generados en producción.
+- [ ] SEO dinámico: Configuración de generateMetadata para títulos y descripciones únicas.
+- [ ] Optimización de Imágenes: Uso del componente <Image /> de Next.js para evitar Cumulative Layout Shift (CLS).
 
-### Fase 4: El Listado (Home) 🏠
+Fase 4: El Listado (Home) e Interacción 🏠
 
-- [ ] Infinite Scroll o Paginación: Carga eficiente de la lista principal.
-- [ ] Buscador en tiempo real: Filtrado por nombre o ID.
+- [x] Data Fetching Pro: Implementación de getFullPokemonList con Promise.all para hidratar el Home.
+- [ ] Arquitectura de Componentes: Separación en /components/ui (Badges) y /components/pokemon (Cards).
+- [x] Grid Estático: Renderizado de las 151 tarjetas con toda su info (ID, Tipos, Sprites) desde el servidor.
+- [ ] Buscador Client-Side: Filtrado rápido sobre la lista estática ya cargada.

@@ -5,7 +5,7 @@ const LIMIT = process.env.POKEMON_LIST_LIMIT
 
 export const fetchPokemonByID = async (slug: string): Promise<ApiPokemonResponse | null> => {
   const response = await fetch(`${BASE_URL}/pokemon/${slug}`, {
-    next: { revalidate: 60 },
+    next: { revalidate: 86400 },
   })
   if (!response.ok) return null
   return await response.json()
