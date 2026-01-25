@@ -16,7 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${rajdhani.variable} antialiased`}>
-        <header className="flex items-center gap-1">
+        {/* Textura */}
+        <div className="fixed inset-0 z-[-1] opacity-[0.4] bg-pattern" />
+
+        {/* <header className="flex items-center gap-1">
           <nav>
             <ul>
               <li>
@@ -26,8 +29,7 @@ export default function RootLayout({
               </li>
             </ul>
           </nav>
-        </header>
-
+        </header> */}
         {children}
       </body>
     </html>

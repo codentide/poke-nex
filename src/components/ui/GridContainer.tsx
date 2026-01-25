@@ -4,7 +4,7 @@ interface Props {
 
 export const GridContainer = ({ children }: Props) => {
   return (
-    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-6 grid-cols-[repeat(auto-fill,minmax(240px,1fr))]">
       {children}
     </div>
   )

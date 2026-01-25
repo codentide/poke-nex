@@ -1,4 +1,6 @@
 export interface TypeTheme {
+  hue: string
+  gradient: string
   bg: string
   text: string
   border: string
@@ -8,6 +10,8 @@ export interface TypeTheme {
 
 export const POKE_THEMES: Record<string, TypeTheme> = {
   fire: {
+    hue: 'red',
+    gradient: 'from-red-500/50',
     bg: 'bg-red-600/20',
     text: 'text-red-400',
     border: 'border-red-500/50',
@@ -15,6 +19,8 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     glow: 'shadow-[0_0_12px] shadow-red-500/20 outline-red-400/20',
   },
   water: {
+    hue: 'blue',
+    gradient: 'from-blue-500/50',
     bg: 'bg-blue-600/20',
     text: 'text-blue-400',
     border: 'border-blue-500/50',
@@ -22,6 +28,8 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     glow: 'shadow-[0_0_12px] shadow-blue-500/20 outline-blue-400/20',
   },
   grass: {
+    hue: 'green',
+    gradient: 'from-green-500/50',
     bg: 'bg-green-600/20',
     text: 'text-green-400',
     border: 'border-green-500/50',
@@ -29,6 +37,8 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     glow: 'shadow-[0_0_12px] shadow-green-500/20 outline-green-400/20',
   },
   electric: {
+    hue: 'yellow',
+    gradient: 'from-yellow-500/50',
     bg: 'bg-yellow-600/20',
     text: 'text-yellow-400',
     border: 'border-yellow-400/50',
@@ -36,6 +46,8 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     glow: 'shadow-[0_0_12px] shadow-yellow-400/20 outline-yellow-400/20',
   },
   ice: {
+    hue: 'cyan',
+    gradient: 'from-cyan-500/50',
     bg: 'bg-cyan-600/20',
     text: 'text-cyan-400',
     border: 'border-cyan-400/50',
@@ -43,6 +55,8 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     glow: 'shadow-[0_0_12px] shadow-cyan-400/20 outline-cyan-400/20',
   },
   fighting: {
+    hue: 'orange',
+    gradient: 'from-orange-500/50',
     bg: 'bg-orange-600/20',
     text: 'text-orange-400',
     border: 'border-orange-500/50',
@@ -50,6 +64,8 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     glow: 'shadow-[0_0_12px] shadow-orange-500/20 outline-orange-400/20',
   },
   poison: {
+    hue: 'purple',
+    gradient: 'from-purple-500/50',
     bg: 'bg-purple-600/20',
     text: 'text-purple-400',
     border: 'border-purple-500/50',
@@ -57,6 +73,8 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     glow: 'shadow-[0_0_12px] shadow-purple-500/20 outline-purple-400/20',
   },
   ground: {
+    hue: 'amber',
+    gradient: 'from-amber-500/50',
     bg: 'bg-amber-600/20',
     text: 'text-amber-400',
     border: 'border-amber-600/50',
@@ -64,6 +82,8 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     glow: 'shadow-[0_0_12px] shadow-amber-600/20 outline-amber-400/20',
   },
   flying: {
+    hue: 'indigo',
+    gradient: 'from-indigo-500/50',
     bg: 'bg-indigo-600/20',
     text: 'text-indigo-400',
     border: 'border-indigo-400/50',
@@ -71,6 +91,8 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     glow: 'shadow-[0_0_12px] shadow-indigo-400/20 outline-indigo-400/20',
   },
   psychic: {
+    hue: 'pink',
+    gradient: 'from-pink-500/50',
     bg: 'bg-pink-600/20',
     text: 'text-pink-400',
     border: 'border-pink-500/50',
@@ -78,6 +100,8 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     glow: 'shadow-[0_0_12px] shadow-pink-500/20 outline-pink-400/20',
   },
   bug: {
+    hue: 'lime',
+    gradient: 'from-lime-500/50',
     bg: 'bg-lime-600/20',
     text: 'text-lime-400',
     border: 'border-lime-500/50',
@@ -85,6 +109,8 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     glow: 'shadow-[0_0_12px] shadow-lime-500/20 outline-lime-400/20',
   },
   rock: {
+    hue: 'stone',
+    gradient: 'from-stone-500/50',
     bg: 'bg-stone-600/50',
     text: 'text-stone-300',
     border: 'border-stone-500/50',
@@ -92,6 +118,8 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     glow: 'shadow-[0_0_12px] shadow-stone-500/20 outline-stone-400/20',
   },
   ghost: {
+    hue: 'violet',
+    gradient: 'from-violet-500/50',
     bg: 'bg-violet-600/20',
     text: 'text-violet-400',
     border: 'border-violet-500/50',
@@ -99,6 +127,8 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     glow: 'shadow-[0_0_12px] shadow-violet-500/20 outline-violet-400/20',
   },
   dragon: {
+    hue: 'indigo',
+    gradient: 'from-indigo-500/50',
     bg: 'bg-indigo-600/20',
     text: 'text-indigo-400',
     border: 'border-indigo-500/50',
@@ -106,6 +136,8 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     glow: 'shadow-[0_0_12px] shadow-indigo-500/20 outline-indigo-400/20',
   },
   steel: {
+    hue: 'slate',
+    gradient: 'from-slate-500/50',
     bg: 'bg-slate-600/50',
     text: 'text-slate-200',
     border: 'border-slate-500/50',
@@ -113,6 +145,8 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     glow: 'shadow-[0_0_12px] shadow-slate-500/20 outline-slate-400/20',
   },
   fairy: {
+    hue: 'rose',
+    gradient: 'from-rose-500/50',
     bg: 'bg-rose-600/20',
     text: 'text-rose-400',
     border: 'border-rose-400/50',
@@ -120,6 +154,8 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     glow: 'shadow-[0_0_12px] shadow-rose-400/20 outline-rose-400/20',
   },
   normal: {
+    hue: 'zinc',
+    gradient: 'from-zinc-500/50',
     bg: 'bg-zinc-600/80',
     text: 'text-zinc-200',
     border: 'border-zinc-500/50',
@@ -127,10 +163,12 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     glow: 'shadow-[0_0_12px] shadow-zinc-500/20 outline-zinc-400/20',
   },
   default: {
+    hue: 'white',
+    gradient: 'from-white/20',
     bg: 'bg-white/10',
     text: 'text-white',
     border: 'border-white/20',
     hover: 'hover:bg-white/20',
-    glow: 'shadow-[0_0_12px] shadow-wh2te/10 outline-wh4te/20',
+    glow: 'shadow-[0_0_12px] shadow-white/10 outline-white/20',
   },
 }
