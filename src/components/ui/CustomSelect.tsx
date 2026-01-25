@@ -45,7 +45,7 @@ export const CustomSelect = <T,>({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full h-full flex items-center justify-between px-3 py-2 rounded-md bg-zinc-900/50 border border-white/10 backdrop-blur-md text-zinc-200 hover:bg-white/5 transition-all cursor-pointer"
+        className="w-full h-full flex items-center justify-between px-3 py-2 rounded-md bg-zinc-800 border border-white/10 backdrop-blur-md text-zinc-200 hover:bg-white/5 transition-all cursor-pointer"
       >
         <div className="flex items-center gap-3">{renderItem(displayKey)}</div>
         <MdKeyboardArrowDown

@@ -1,16 +1,11 @@
+import { View } from '@/components/pokemon/PokeGallery'
 import { ALL_POKEMON_TYPES, POKE_THEMES } from '@/constants'
-import { CustomSelect, CustomSelectProps } from './CustomSelect'
 import { PokeSort, PokeType } from '@/types'
 import { FaTrash } from 'react-icons/fa6'
-import { TypeIcon } from './TypeIcon'
-import { View } from '@/components/pokemon/PokeGallery'
-import { MdGridView } from 'react-icons/md'
-import { HiViewGrid, HiViewList } from 'react-icons/hi'
+import { HiMiniListBullet } from 'react-icons/hi2'
 import { IoGrid } from 'react-icons/io5'
-import { AiOutlineUnorderedList } from 'react-icons/ai'
-import { HiMiniListBullet, HiMiniSquares2X2 } from 'react-icons/hi2'
-import { BsListUl } from 'react-icons/bs'
-import { RiListCheck3 } from 'react-icons/ri'
+import { CustomSelect, CustomSelectProps } from './CustomSelect'
+import { TypeIcon } from './TypeIcon'
 
 interface Props {
   search: string
@@ -25,10 +20,10 @@ interface Props {
 }
 
 const SORT_OPTIONS: CustomSelectProps<string>['options'] = [
-  { label: 'Lowest ID', value: 'id-asc' },
-  { label: 'Highest ID', value: 'id-desc' },
   { label: 'A-Z', value: 'name-asc' },
   { label: 'Z-A', value: 'name-desc' },
+  { label: 'Lowest Id', value: 'id-asc' },
+  { label: 'Highest Id', value: 'id-desc' },
 ]
 
 export const FilterBar = ({

@@ -1,5 +1,8 @@
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
 import { PageBadge } from './PageBadge'
+import { calculatePageButtons } from '@/lib/utils/pagination.util'
+import { HiEllipsisHorizontal } from 'react-icons/hi2'
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 interface Props {
   current: number
@@ -9,51 +12,58 @@ interface Props {
   onPageSelect: (page: number) => void
 }
 
-const calculatePageButtons = (current: number, total: number) => {
-  const showAmount = 3
-
-  let start = Math.max(1, current)
-  if (start + showAmount > total) {
-    start = Math.max(1, total - showAmount)
-  }
-
-  const badges = []
-  for (let i = 0; i < showAmount && start + i <= total; i++) {
-    badges.push(start + i)
-  }
-
-  return badges
-}
-
-export const PaginationControl = ({ current, total, onNext, onPrev, onPageSelect }: Props) => {
-  const pageButtons = calculatePageButtons(current, total)
+export const PaginationControl = ({
+  current,
+  total,
+  onNext,
+  onPrev,
+  onPageSelect,
+}: Props) => {
+  const isMobile = useIsMobile()
+  const pageButtons = calculatePageButtons(current, total, isMobile ? 2 : 3)
 
   return (
-    <div className="flex items-center justify-center gap-10 py-10">
+    <div className="flex gap-4 lg:gap-10 lg:mx-auto font-rajdhani">
       <button
-        className="flex items-center gap-2 px-6 py-3 font-bold text-gray-600 transition-all bg-white shadow-sm rounded-xl cursor-pointer hover:shadow-md hover:text-red-500 active:scale-95 disabled:invisible"
+        className="flex items-center justify-center gap-2  px-4 py-2 font-bold text-zinc-200 bg-zinc-800 border border-white/10 rounded-md cursor-pointer hover:shadow-md hover:brightness-125 active:scale-95 disabled:opacity-25 disabled:pointer-events-none transition-all"
         onClick={onPrev}
         disabled={current <= 1}
       >
-        <FaAngleLeft className="text-red-400" />
-        Back
+        <FaAngleLeft className="text-zinc-400" />
+        <span className="hidden lg:block">Back</span>
       </button>
 
-      <div className="flex items-center gap-3 px-5 py-2 font-mono text-lg font-bold text-white bg-gray-800 shadow-inner rounded-full">
-        {pageButtons.map((page) => (
-          <PageBadge key={page} page={page} onClick={onPageSelect} active={page == current} />
-        ))}
-        {current + 3 <= total && <span className="opacity-30">...</span>}
-        <PageBadge page={total} onClick={onPageSelect} active={total === current} />
+      <div className="flex items-center justify-center gap-2 w-full md:w-fit">
+        {pageButtons.map((page) => {
+          if (page === total) return null
+          return (
+            <PageBadge
+              key={page}
+              page={page}
+              onClick={onPageSelect}
+              active={page == current}
+            />
+          )
+        })}
+        {current + 2 <= total && (
+          <span className="grid place-items-center w-8.5 h-full aspect-[1/1.2] opacity-30">
+            <HiEllipsisHorizontal className="text-xl" />
+          </span>
+        )}
+        <PageBadge
+          page={total}
+          onClick={onPageSelect}
+          active={total === current}
+        />
       </div>
 
       <button
-        className="flex items-center gap-2 px-6 py-3 font-bold text-gray-600 transition-all bg-white shadow-sm rounded-xl cursor-pointer hover:shadow-md hover:text-red-500 active:scale-95 disabled:invisible"
+        className="flex items-center justify-center gap-2  px-4 py-2 font-bold text-zinc-200 bg-zinc-800 border border-white/10 rounded-md cursor-pointer hover:shadow-md hover:brightness-125 active:scale-95 disabled:opacity-25 disabled:pointer-events-none transition-all"
         onClick={onNext}
         disabled={current >= total}
       >
-        Next
-        <FaAngleRight className="text-red-400" />
+        <span className="hidden lg:block">Next</span>
+        <FaAngleRight className="text-zinc-400" />
       </button>
     </div>
   )

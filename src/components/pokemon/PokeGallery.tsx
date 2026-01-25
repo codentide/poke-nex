@@ -3,11 +3,11 @@
 import { usePaginate } from '@/hooks/usePaginate'
 import { usePokeFilters } from '@/hooks/usePokeFilters'
 import { Pokemon } from '@/types'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { GridContainer, PaginationControl } from '../ui'
 import { FilterBar } from '../ui/FilterBar'
-import { PokemonCard } from './PokemonCard'
 import { ListContainer } from '../ui/ListContainer'
+import { PokemonCard } from './PokemonCard'
 
 interface Props {
   content: Pokemon[]
@@ -26,7 +26,7 @@ export const PokeGallery = ({ content }: Props) => {
     setSort,
     toggleType,
     clearTypes,
-  } = usePokeFilters(content, { debounce: 250 })
+  } = usePokeFilters(content, { debounce: 0 })
 
   const {
     paginated: paginatedList,
@@ -37,12 +37,8 @@ export const PokeGallery = ({ content }: Props) => {
     setCurrent,
   } = usePaginate(filteredList, 12)
 
-  useEffect(() => {
-    console.log(filterState)
-  }, [filterState])
-
   return (
-    <section className="flex flex-col gap-4 max-w-7xl">
+    <section className="flex flex-col gap-16 max-w-7xl">
       <FilterBar
         search={filterState.search}
         selectedTypes={filterState.types}
