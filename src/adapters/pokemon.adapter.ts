@@ -1,11 +1,22 @@
-import { ApiPokemonResponse, Pokemon } from '@/types'
+import { ApiPokemonResponse, Pokemon, PokeType } from '@/types'
 
-export const adaptPokemon = ({ id, name, height, weight, types, sprites }: ApiPokemonResponse): Pokemon => {
-  const mappedTypes = types.map((type) => ({ name: type.type.name }))
+export const adaptPokemon = ({
+  id,
+  name,
+  height,
+  weight,
+  types,
+  sprites,
+}: ApiPokemonResponse): Pokemon => {
+  const mappedTypes: PokeType[] = types.map((type) => ({
+    name: type.type.name as PokeType['name'],
+    url: type.type.url,
+  }))
 
   const artwork = sprites.other['official-artwork']
   const home = sprites.other.home
-  const dummyImage = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/132.png'
+  const dummyImage =
+    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/132.png'
 
   return {
     id,
@@ -19,7 +30,7 @@ export const adaptPokemon = ({ id, name, height, weight, types, sprites }: ApiPo
           front: artwork.front_default || dummyImage,
         },
         shiny: {
-          front: artwork.front_default || dummyImage,
+          front: artwork.front_shiny || dummyImage,
         },
       },
       home: {
@@ -27,7 +38,7 @@ export const adaptPokemon = ({ id, name, height, weight, types, sprites }: ApiPo
           front: home.front_default || dummyImage,
         },
         shiny: {
-          front: home.front_default || dummyImage,
+          front: home.front_shiny || dummyImage,
         },
       },
     },

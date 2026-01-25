@@ -1,35 +1,38 @@
 import { ReactNode, useEffect, useRef, useState } from 'react'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 
-interface Props<T> {
+export interface CustomSelectProps<T> {
+  classname?: string
   options: {
-    key: string
+    label: string
     value: T
   }[]
   selected: string
   onSelect: (option: T) => void
-  renderItem: (key: string) => ReactNode
-  classname?: string
+  renderItem: (label: string) => ReactNode
 }
 
 export const CustomSelect = <T,>({
+  classname,
   options,
   selected,
   onSelect,
   renderItem,
-  classname,
-}: Props<T>) => {
+}: CustomSelectProps<T>) => {
   const [isOpen, setIsOpen] = useState(false)
   const selectRef = useRef<HTMLDivElement>(null)
 
   const selectedOption = options.find(
-    (opt) => opt.value === selected || opt.key === selected
+    (opt) => opt.value === selected || opt.label === selected
   )
-  const displayKey = selectedOption ? selectedOption.key : selected
+  const displayKey = selectedOption ? selectedOption.label : selected
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
+      if (
+        selectRef.current &&
+        !selectRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false)
       }
     }
@@ -38,13 +41,12 @@ export const CustomSelect = <T,>({
   }, [])
 
   return (
-    <div className={`relative ${classname}`} ref={selectRef}>
+    <div className={`relative ${classname} font-rajdhani`} ref={selectRef}>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between px-3 py-2 rounded-md bg-zinc-900/50 border border-white/10 backdrop-blur-md text-white hover:bg-white/5 transition-all"
+        className="w-full h-full flex items-center justify-between px-3 py-2 rounded-md bg-zinc-900/50 border border-white/10 backdrop-blur-md text-zinc-200 hover:bg-white/5 transition-all cursor-pointer"
       >
-        {/* Usamos displayKey para asegurar que se vea la llave */}
         <div className="flex items-center gap-3">{renderItem(displayKey)}</div>
         <MdKeyboardArrowDown
           className={`text-2xl transition-transform ${isOpen ? 'rotate-180' : ''}`}
@@ -52,19 +54,21 @@ export const CustomSelect = <T,>({
       </button>
 
       {isOpen && (
-        <ul className="absolute z-50 w-full mt-2 p-2 bg-zinc-900 border border-white/10 rounded-md shadow-2xl max-h-64 overflow-y-auto">
+        <ul className="absolute z-50 w-full mt-2 bg-zinc-900 border border-white/10 rounded-md shadow-2xl max-h-64 overflow-y-auto">
           {options.map((option) => (
             <li
-              key={option.key}
+              key={option.label}
               onClick={() => {
                 onSelect(option.value)
                 setIsOpen(false)
               }}
-              className={`flex items-center gap-3 px-3 py-2 rounded-xs cursor-pointer text-md hover:bg-white/10 transition-colors ${
-                selected === option.key || selected === option.value ? 'bg-white/5' : ''
+              className={`flex items-center gap-3 p-3 leading-4 rounded-xs cursor-pointer text-md text-zinc-400 hover:bg-white/10 transition-colors ${
+                selected === option.label || selected === option.value
+                  ? 'text-zinc-200! bg-white/5'
+                  : ''
               }`}
             >
-              {renderItem(option.key)}
+              {renderItem(option.label)}
             </li>
           ))}
         </ul>

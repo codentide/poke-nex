@@ -47,7 +47,7 @@ export default async function PokemonDetailPage({ params }: Props) {
         <div className="relative flex justify-center bg-linear-to-b from-slate-600 to-white pt-4">
           <div className="relative w-64 h-64 drop-shadow-2xl">
             <Image
-              src={pokemonData.assets.home.default.front}
+              src={pokemonData.assets.home.shiny.front}
               alt={pokemonData.name + ' image'}
               fill
               className="object-contain"
@@ -79,7 +79,9 @@ export default async function PokemonDetailPage({ params }: Props) {
               <p className="text-slate-400 text-xs uppercase font-bold tracking-widest">
                 Height
               </p>
-              <p className="text-xl font-bold text-slate-800">{pokemonData.height} m</p>
+              <p className="text-xl font-bold text-slate-800">
+                {pokemonData.height} m
+              </p>
             </div>
             <div className="text-center border-l border-slate-100">
               <p className="text-slate-400 text-xs uppercase font-bold tracking-widest">
