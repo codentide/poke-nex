@@ -1,3 +1,5 @@
+import { PokeType } from '@/types'
+
 export const TYPE_COLORS: Record<string, string> = {
   fire: 'bg-red-500 text-white',
   water: 'bg-blue-500 text-white',
@@ -36,8 +38,29 @@ export const POKEMON_TYPES = {
   PSYCHIC: 'psychic',
   ICE: 'ice',
   DRAGON: 'dragon',
-  DARK: 'dark',
+  // DARK: 'dark',
   FAIRY: 'fairy',
-  STELLAR: 'stellar',
-  UNKNOWN: 'unknown',
+  // STELLAR: 'stellar',
+  // UNKNOWN: 'unknown',
 } as const
+
+export const ALL_POKEMON_TYPES: PokeType['name'][] = [
+  'fire',
+  'water',
+  'grass',
+  'electric',
+  'ice',
+  'fighting',
+  'poison',
+  'ground',
+  'flying',
+  'psychic',
+  'bug',
+  'rock',
+  'ghost',
+  'dragon',
+  'steel',
+  'fairy',
+  'normal',
+  // 'dark',
+]

@@ -27,9 +27,10 @@ const filterReducer = (state: FilterState, action: FilterAction) => {
       const filteredTypes = state.types.filter((type) => type !== newType)
       return { ...state, types: filteredTypes }
     }
-    const updatedTypes =
-      state.types.length >= 2 ? [state.types[1], newType] : [...state.types, newType]
-    return { ...state, types: updatedTypes }
+    // const updatedTypes =
+    //   state.types.length >= 2 ? [state.types[1], newType] : [...state.types, newType]
+
+    return { ...state, types: [...state.types, newType] }
   }
   if (action.type === 'CLEAR_TYPES') return { ...state, types: [] }
   else return state
@@ -74,7 +75,7 @@ export const usePokeFilters = (
     if (types.length > 0) {
       result = result.filter((pokemon) => {
         const pokeTypeNames = pokemon.types.map((type) => type.name)
-        return types.every((stateType) => pokeTypeNames.includes(stateType))
+        return types.some((stateType) => pokeTypeNames.includes(stateType))
       })
     }
 
