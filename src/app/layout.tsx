@@ -2,10 +2,14 @@ import type { Metadata } from 'next'
 import './globals.css'
 import Link from 'next/link'
 import { inter, rajdhani } from './fonts'
+import { Header } from '@/components/ui/Header'
 
 export const metadata: Metadata = {
   title: 'Pokénex',
   description: 'Pokédex next app',
+  icons: {
+    icon: { url: '/favicon.svg' },
+  },
 }
 
 export default function RootLayout({
@@ -15,10 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${rajdhani.variable} antialiased`}>
+      <body
+        className={`${inter.variable} ${rajdhani.variable} antialiased bg-black`}
+      >
         {/* Textura */}
         <div className="fixed inset-0 z-[-1] opacity-[0.4] bg-pattern" />
-
+        <Header />
         {/* <header className="flex items-center gap-1">
           <nav>
             <ul>

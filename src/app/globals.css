@@ -32,8 +32,8 @@
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 @theme inline {
@@ -41,13 +41,6 @@
   --color-foreground: var(--foreground);
   --font-inter: 'Inter', sans-serif;
   --font-rajdhani: 'Rajdhani', sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
