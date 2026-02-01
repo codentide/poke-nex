@@ -1,4 +1,5 @@
 import {
+  ApiEvolutionChainResponse,
   ApiPokemonListResponse,
   ApiPokemonResponse,
   ApiSpeciesResponse,
@@ -20,6 +21,8 @@ export const fetchPokemonByID = async (
   const speciesData: ApiSpeciesResponse = await speciesResponse.json()
   data.genera = speciesData.genera
   data.flavor_text_entries = speciesData.flavor_text_entries
+  data.evolution_chain = speciesData.evolution_chain
+
   return data
 }
 
@@ -28,5 +31,13 @@ export const fetchPokemonList = async (
 ): Promise<ApiPokemonListResponse | null> => {
   const response = await fetch(`${BASE_URL}/pokemon?limit=${limit}`)
   if (!response.ok) return null
+  return await response.json()
+}
+
+export const fetchEvolutionChain = async (
+  id: number | string
+): Promise<ApiEvolutionChainResponse> => {
+  const response = await fetch(`${BASE_URL}/evolution-chain/${id}`)
+  if (!response.ok) throw new Error('Error fetching evolution chain')
   return await response.json()
 }

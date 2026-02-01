@@ -162,6 +162,15 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     hover: 'hover:bg-zinc-500/30',
     glow: 'drop-shadow-[0_0_12px] drop-shadow-zinc-500/30 outline-zinc-400/20',
   },
+  dark: {
+    hue: 'slate',
+    gradient: 'from-slate-700/60',
+    bg: 'bg-slate-900/40',
+    text: 'text-slate-300',
+    border: 'border-slate-600/50',
+    hover: 'hover:bg-slate-700/40',
+    glow: 'drop-shadow-[0_0_12px] drop-shadow-slate-800/60 outline-slate-500/10',
+  },
   default: {
     hue: 'white',
     gradient: 'from-white/20',

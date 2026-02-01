@@ -14,10 +14,11 @@ export const adaptPokemon = ({
   weight,
   types,
   sprites,
-  abilities: apiAbilities,
   flavor_text_entries,
-  stats: apiStats,
   genera,
+  abilities: apiAbilities,
+  stats: apiStats,
+  evolution_chain,
 }: ApiPokemonResponse): Pokemon => {
   const mappedTypes: PokeType[] = types.map((type) => ({
     name: type.type.name as PokeType['name'],
@@ -32,6 +33,11 @@ export const adaptPokemon = ({
   const abilities = mapAbilities(apiAbilities)
   const description = distillDescription(flavor_text_entries)
   const stats = mapStats(apiStats)
+  const evolution = {
+    id: distillEvolutionChainId(evolution_chain.url),
+    url: evolution_chain.url,
+    chain: [],
+  }
   return {
     id,
     name,
@@ -42,6 +48,7 @@ export const adaptPokemon = ({
     height: height / 10,
     weight: weight / 10,
     stats,
+    evolution,
     assets: {
       official: {
         default: {
@@ -99,4 +106,10 @@ const distillDescription = (
     .replace(/[\n\f\r\t]/g, ' ')
     .replace(/\s\s+/g, ' ')
     .trim()
+}
+
+const distillEvolutionChainId = (url: string) => {
+  const matches = url.match(/\/(\d+)\/?$/)
+  const id = matches ? matches[1] : null
+  return Number(id)
 }

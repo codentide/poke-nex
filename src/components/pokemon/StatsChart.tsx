@@ -31,7 +31,7 @@ export const hueToHex: Record<string, string> = {
 }
 
 export const StatsChart = ({ stats, hue }: Props) => {
-  const series = [
+  const series: ApexNonAxisChartSeries = [
     {
       name: 'Estadísticas Base', // El nombre de la leyenda
       data: stats.map((stat) => stat.value), // Los números puros
@@ -42,7 +42,6 @@ export const StatsChart = ({ stats, hue }: Props) => {
     chart: {
       type: 'radar',
       fontFamily: 'Rajdhani',
-      parentHeightOffset: 150,
       dropShadow: {
         enabled: true,
         top: 0,
@@ -117,7 +116,10 @@ export const StatsChart = ({ stats, hue }: Props) => {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col gap-2">
+      <h3 className="text-4xl font-rajdhani font-semibold uppercase text-center text-white/60">
+        Base Stats
+      </h3>
       <Chart type="radar" series={series} options={options} height={520} />
     </div>
   )

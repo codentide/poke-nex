@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const TypeBadge = ({ type }: Props) => {
-  const theme = POKE_THEMES[type.name]
+  const theme = POKE_THEMES[type.name] || 'normal'
 
   return (
     <span

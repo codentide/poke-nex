@@ -1,12 +1,15 @@
-import { StatsChart } from '@/components/pokemon/StatsChart'
-import { TypeBadge } from '@/components/pokemon/TypeBadge'
-import { POKE_THEMES } from '@/constants'
-import { capitalize } from '@/lib/utils/format.util'
-import { getMostColorfulType } from '@/lib/utils/pokemon.util'
-import { getPokemonDetail, getPokemonList } from '@/services/pokemon.service'
-import Image from 'next/image'
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi'
+import {
+  EvolutionChain,
+  PokeCover,
+  StatsChart,
+  TypeBadge,
+} from '@/components/pokemon'
+import { POKE_THEMES } from '@/constants'
+import { capitalize, getMostColorfulType } from '@/lib/utils'
+import { getPokemonDetail, getPokemonList } from '@/services/pokemon.service'
 
 interface Props {
   params: { slug: string }
@@ -33,43 +36,38 @@ export async function generateMetadata({ params }: Props) {
 export default async function PokemonDetailPage({ params }: Props) {
   const { slug } = await params
   const pokemonData = await getPokemonDetail(slug)
-
   if (!pokemonData) notFound()
 
-  const primaryType = getMostColorfulType(pokemonData.types)
-  const theme = POKE_THEMES[primaryType]
+  const type = getMostColorfulType(pokemonData.types)
+  const theme = POKE_THEMES[type]
 
   return (
     <main className="min-h-screen flex flex-col items-center gap-12 p-8">
       {/* HERO */}
-      <div className="flex flex-col items-center gap-4">
+      <div className="flex flex-col items-center gap-4 w-full">
         <small className="block font-rajdhani text-xl text-center text-white/50">
           N° {pokemonData.id.toString().padStart(4, '0')}
         </small>
         <div className="relative flex items-center gap-12">
-          <button className="absolute top-0 right-0 py-4 px-4 cursor-pointer bg-white/5 rounded-md transition-all text-md text-white">
-            Shiny
-          </button>
-          <button className="py-4 px-2 cursor-pointer hover:bg-white/5 rounded-md transition-all text-4xl text-white/20 hover:text-white">
-            <BiChevronLeft />
-          </button>
-          <div
-            className={`relative w-96 h-96 drop-shadow-2xl ${theme.glow} drop-shadow-[0_0_120px]`}
-          >
-            <Image
-              src={pokemonData.assets.home.default.front}
-              alt={pokemonData.name + ' image'}
-              fill
-              className="object-contain"
-              priority
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-          </div>
-          <button className="py-4 px-2 cursor-pointer hover:bg-white/5 rounded-md transition-all text-4xl text-white/20 hover:text-white">
-            <BiChevronRight />
-          </button>
+          {pokemonData.id > 1 && (
+            <Link
+              className="absolute top-[64%] translate-y-[-50%] -left-24 py-4 px-0 cursor-pointer hover:bg-white/5 rounded-md transition-all text-4xl text-white/20 hover:text-white"
+              href={`/pokemon/${pokemonData.id - 1}`}
+            >
+              <BiChevronLeft className="text-5xl" />
+            </Link>
+          )}
+          <PokeCover data={pokemonData} />
+          {pokemonData.id < 1025 && (
+            <Link
+              className="absolute top-[64%] translate-y-[-50%] -right-24 py-4 px-0 cursor-pointer hover:bg-white/5 rounded-md transition-all text-4xl text-white/20 hover:text-white"
+              href={`/pokemon/${pokemonData.id + 1}`}
+            >
+              <BiChevronRight className="text-5xl" />
+            </Link>
+          )}
         </div>
-        <h1 className="w-full mt-8 text-8xl font-rajdhani font-semibold uppercase text-center">
+        <h1 className="w-full mt-8 text-6xl lg:text-8xl font-rajdhani font-semibold uppercase text-center">
           {pokemonData.name}
         </h1>
         <div className="flex gap-2 w-fit">
@@ -112,7 +110,9 @@ export default async function PokemonDetailPage({ params }: Props) {
         </div>
       </div>
       {/* GRÁFICA */}
-      <StatsChart hue={theme.hue} stats={pokemonData.stats} />
+      <StatsChart hue={theme?.hue} stats={pokemonData.stats} />
+      {/* EVOLUTION CHAIN */}
+      <EvolutionChain theme={theme} id={pokemonData.evolution.id} />
     </main>
   )
 }

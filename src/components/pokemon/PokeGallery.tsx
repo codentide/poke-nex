@@ -26,7 +26,7 @@ export const PokeGallery = ({ content }: Props) => {
     setSort,
     toggleType,
     clearTypes,
-  } = usePokeFilters(content, { debounce: 0 })
+  } = usePokeFilters(content, { debounce: 250 })
 
   const {
     paginated: paginatedList,

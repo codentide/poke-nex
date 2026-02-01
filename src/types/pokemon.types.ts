@@ -25,6 +25,14 @@ type Assets = {
   }
 }
 
+type Evolution = {
+  id: number
+  name: string
+  sprite: string
+  // trigger?: string
+  // evolvesTo: Evolution[]
+}
+
 export interface Pokemon {
   id: number
   name: string
@@ -36,4 +44,8 @@ export interface Pokemon {
   description: string
   assets: Assets
   stats: PokeStat[]
+  evolution: {
+    id: number
+    chain: Evolution[]
+  }
 }

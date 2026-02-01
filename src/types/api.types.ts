@@ -75,6 +75,8 @@ type ApiPokemonStat = {
   }
 }
 
+// POKEMON LIST
+
 export type ApiPokemonListResponse = {
   count: number
   next: string | null
@@ -82,28 +84,22 @@ export type ApiPokemonListResponse = {
   results: { name: string; url: string }[]
 }
 
-export type ApiPokemonResponse = {
-  id: number
-  name: string
-  types: ApiPokemonType[]
-  stats: ApiPokemonStat[]
-  height: number
-  weight: number
-  sprites: ApiPokemonSprites
-  abilities: ApiPokemonAbility[]
-  genera: ApiSpeciesResponse['genera'] | null
-  flavor_text_entries: ApiSpeciesResponse['flavor_text_entries'] | null
+// EVOLUTION CHAIN
+
+type ApiEvolutionStep = {
   species: {
     name: string
     url: string
   }
-
-  // forms: ApiPokemonForm[]
-  // base_experience: number
-  // game_indices: ApiGameIndex[]
-  // location_area_encounters: string
-  // cries: ApiPokemonCries
+  evolves_to: ApiEvolutionStep[]
 }
+
+export type ApiEvolutionChainResponse = {
+  id: number
+  chain: ApiEvolutionStep
+}
+
+// POKEMON SPECIES
 
 export type ApiSpeciesResponse = {
   genera: {
@@ -118,4 +114,35 @@ export type ApiSpeciesResponse = {
       url: string
     }
   }[]
+  evolution_chain: {
+    url: string
+  }
+}
+
+// GENERAL POKEMON FETCH
+
+export type ApiPokemonResponse = {
+  id: number
+  name: string
+  types: ApiPokemonType[]
+  stats: ApiPokemonStat[]
+  height: number
+  weight: number
+  sprites: ApiPokemonSprites
+  abilities: ApiPokemonAbility[]
+  genera: ApiSpeciesResponse['genera'] | null
+  flavor_text_entries: ApiSpeciesResponse['flavor_text_entries'] | null
+  evolution_chain: {
+    url: string
+  }
+  species: {
+    name: string
+    url: string
+  }
+
+  // forms: ApiPokemonForm[]
+  // base_experience: number
+  // game_indices: ApiGameIndex[]
+  // location_area_encounters: string
+  // cries: ApiPokemonCries
 }

@@ -1,4 +1,4 @@
-import { PokeType } from '@/types'
+import { ApiEvolutionChainResponse, Pokemon, PokeType } from '@/types'
 
 export const getPokemonOfTheDay = (totalPokemons: number = 1025) => {
   const today = new Date()
@@ -17,7 +17,9 @@ export const getPokemonOfTheDay = (totalPokemons: number = 1025) => {
   return pokemonId
 }
 
-export const getMostColorfulType = (types: PokeType[]) => {
+export const getMostColorfulType = (types: PokeType[]): PokeType['name'] => {
+  if (!types) return 'normal'
+
   if (types.length > 1) {
     const isGrayType =
       types[0].name === 'normal' ||
@@ -27,4 +29,25 @@ export const getMostColorfulType = (types: PokeType[]) => {
     if (isGrayType) return types[1].name
   }
   return types[0].name
+}
+
+export const flatEvolutionChain = (
+  node: ApiEvolutionChainResponse['chain']
+): Pokemon['evolution']['chain'] => {
+  const flattened: Pokemon['evolution']['chain'] = []
+
+  const dive = (current: ApiEvolutionChainResponse['chain']) => {
+    const id = current.species.url.split('/').filter(Boolean).pop()
+
+    flattened.push({
+      id: Number(id),
+      name: current.species.name,
+      sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${id}.png`,
+    })
+
+    current.evolves_to.forEach((next) => dive(next))
+  }
+
+  dive(node)
+  return flattened
 }
