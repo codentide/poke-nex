@@ -7,6 +7,7 @@ import Image from 'next/image' // ¡Aprovechemos el componente de Next!
 import Link from 'next/link'
 import { memo, useState } from 'react'
 import { IoHeart } from 'react-icons/io5'
+import { TypeBadge } from './TypeBadge'
 
 interface Props {
   content: Pokemon
@@ -41,18 +42,9 @@ export const PokemonCard = memo(({ content }: Props) => {
           <span className="text-zinc-400">#{formattedID}</span>
           <div className="flex items-end justify-between">
             <div className="mt-2 flex gap-2">
-              {content.types.map((type) => {
-                const theme = POKE_THEMES[type.name]
-
-                return (
-                  <span
-                    key={type.name}
-                    className={`rounded-sm px-3 py-0.5 text-sm font-bold uppercase ${theme.bg} ${theme.text}`}
-                  >
-                    {type.name}
-                  </span>
-                )
-              })}
+              {content.types.map((type) => (
+                <TypeBadge key={type.name} type={type} />
+              ))}
             </div>
             <button
               className="z-20 grid place-items-end aspect-square w-8 cursor-pointer"

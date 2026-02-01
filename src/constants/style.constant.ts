@@ -16,7 +16,7 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     text: 'text-red-400',
     border: 'border-red-500/50',
     hover: 'hover:bg-red-500/30',
-    glow: 'shadow-[0_0_12px] shadow-red-500/20 outline-red-400/20',
+    glow: 'drop-shadow-[0_0_12px] drop-shadow-red-500/30 outline-red-400/20',
   },
   water: {
     hue: 'blue',
@@ -25,7 +25,7 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     text: 'text-blue-400',
     border: 'border-blue-500/50',
     hover: 'hover:bg-blue-500/30',
-    glow: 'shadow-[0_0_12px] shadow-blue-500/20 outline-blue-400/20',
+    glow: 'drop-shadow-[0_0_12px] drop-shadow-blue-500/30 outline-blue-400/20',
   },
   grass: {
     hue: 'green',
@@ -34,7 +34,7 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     text: 'text-green-400',
     border: 'border-green-500/50',
     hover: 'hover:bg-green-500/30',
-    glow: 'shadow-[0_0_12px] shadow-green-500/20 outline-green-400/20',
+    glow: 'drop-shadow-[0_0_12px] drop-shadow-green-500/30 outline-green-400/20',
   },
   electric: {
     hue: 'yellow',
@@ -43,7 +43,7 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     text: 'text-yellow-400',
     border: 'border-yellow-400/50',
     hover: 'hover:bg-yellow-400/30',
-    glow: 'shadow-[0_0_12px] shadow-yellow-400/20 outline-yellow-400/20',
+    glow: 'drop-shadow-[0_0_12px] drop-shadow-yellow-400/30 outline-yellow-400/20',
   },
   ice: {
     hue: 'cyan',
@@ -52,7 +52,7 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     text: 'text-cyan-400',
     border: 'border-cyan-400/50',
     hover: 'hover:bg-cyan-400/30',
-    glow: 'shadow-[0_0_12px] shadow-cyan-400/20 outline-cyan-400/20',
+    glow: 'drop-shadow-[0_0_12px] drop-shadow-cyan-400/30 outline-cyan-400/20',
   },
   fighting: {
     hue: 'orange',
@@ -61,7 +61,7 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     text: 'text-orange-400',
     border: 'border-orange-500/50',
     hover: 'hover:bg-orange-500/30',
-    glow: 'shadow-[0_0_12px] shadow-orange-500/20 outline-orange-400/20',
+    glow: 'drop-shadow-[0_0_12px] drop-shadow-orange-500/30 outline-orange-400/20',
   },
   poison: {
     hue: 'purple',
@@ -70,7 +70,7 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     text: 'text-purple-400',
     border: 'border-purple-500/50',
     hover: 'hover:bg-purple-500/30',
-    glow: 'shadow-[0_0_12px] shadow-purple-500/20 outline-purple-400/20',
+    glow: 'drop-shadow-[0_0_12px] drop-shadow-purple-500/30 outline-purple-400/20',
   },
   ground: {
     hue: 'amber',
@@ -79,7 +79,7 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     text: 'text-amber-400',
     border: 'border-amber-600/50',
     hover: 'hover:bg-amber-600/30',
-    glow: 'shadow-[0_0_12px] shadow-amber-600/20 outline-amber-400/20',
+    glow: 'drop-shadow-[0_0_12px] drop-shadow-amber-600/30 outline-amber-400/20',
   },
   flying: {
     hue: 'indigo',
@@ -88,7 +88,7 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     text: 'text-indigo-400',
     border: 'border-indigo-400/50',
     hover: 'hover:bg-indigo-400/30',
-    glow: 'shadow-[0_0_12px] shadow-indigo-400/20 outline-indigo-400/20',
+    glow: 'drop-shadow-[0_0_12px] drop-shadow-indigo-400/30 outline-indigo-400/20',
   },
   psychic: {
     hue: 'pink',
@@ -97,7 +97,7 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     text: 'text-pink-400',
     border: 'border-pink-500/50',
     hover: 'hover:bg-pink-500/30',
-    glow: 'shadow-[0_0_12px] shadow-pink-500/20 outline-pink-400/20',
+    glow: 'drop-shadow-[0_0_12px] drop-shadow-pink-500/30 outline-pink-400/20',
   },
   bug: {
     hue: 'lime',
@@ -106,7 +106,7 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     text: 'text-lime-400',
     border: 'border-lime-500/50',
     hover: 'hover:bg-lime-500/30',
-    glow: 'shadow-[0_0_12px] shadow-lime-500/20 outline-lime-400/20',
+    glow: 'drop-shadow-[0_0_12px] drop-shadow-lime-500/30 outline-lime-400/20',
   },
   rock: {
     hue: 'stone',
@@ -115,7 +115,7 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     text: 'text-stone-300',
     border: 'border-stone-500/50',
     hover: 'hover:bg-stone-500/30',
-    glow: 'shadow-[0_0_12px] shadow-stone-500/20 outline-stone-400/20',
+    glow: 'drop-shadow-[0_0_12px] drop-shadow-stone-500/30 outline-stone-400/20',
   },
   ghost: {
     hue: 'violet',
@@ -124,7 +124,7 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     text: 'text-violet-400',
     border: 'border-violet-500/50',
     hover: 'hover:bg-violet-500/30',
-    glow: 'shadow-[0_0_12px] shadow-violet-500/20 outline-violet-400/20',
+    glow: 'drop-shadow-[0_0_12px] drop-shadow-violet-500/30 outline-violet-400/20',
   },
   dragon: {
     hue: 'indigo',
@@ -133,7 +133,7 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     text: 'text-indigo-400',
     border: 'border-indigo-500/50',
     hover: 'hover:bg-indigo-500/30',
-    glow: 'shadow-[0_0_12px] shadow-indigo-500/20 outline-indigo-400/20',
+    glow: 'drop-shadow-[0_0_12px] drop-shadow-indigo-500/30 outline-indigo-400/20',
   },
   steel: {
     hue: 'slate',
@@ -142,7 +142,7 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     text: 'text-slate-200',
     border: 'border-slate-500/50',
     hover: 'hover:bg-slate-500/30',
-    glow: 'shadow-[0_0_12px] shadow-slate-500/20 outline-slate-400/20',
+    glow: 'drop-shadow-[0_0_12px] drop-shadow-slate-500/30 outline-slate-400/20',
   },
   fairy: {
     hue: 'rose',
@@ -151,7 +151,7 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     text: 'text-rose-400',
     border: 'border-rose-400/50',
     hover: 'hover:bg-rose-400/30',
-    glow: 'shadow-[0_0_12px] shadow-rose-400/20 outline-rose-400/20',
+    glow: 'drop-shadow-[0_0_12px] drop-shadow-rose-400/20 outline-rose-400/20',
   },
   normal: {
     hue: 'zinc',
@@ -160,7 +160,7 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     text: 'text-zinc-200',
     border: 'border-zinc-500/50',
     hover: 'hover:bg-zinc-500/30',
-    glow: 'shadow-[0_0_12px] shadow-zinc-500/20 outline-zinc-400/20',
+    glow: 'drop-shadow-[0_0_12px] drop-shadow-zinc-500/30 outline-zinc-400/20',
   },
   default: {
     hue: 'white',
@@ -169,6 +169,6 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
     text: 'text-white',
     border: 'border-white/20',
     hover: 'hover:bg-white/20',
-    glow: 'shadow-[0_0_12px] shadow-white/10 outline-white/20',
+    glow: 'drop-shadow-[0_0_12px] drop-shadow-white/10 outline-white/20',
   },
 }

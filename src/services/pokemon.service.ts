@@ -1,12 +1,20 @@
 import { adaptPokemon } from '@/adapters/pokemon.adapter'
 import { fetchPokemonByID, fetchPokemonList } from '@/lib/api/pokemon.api'
 import { Pokemon } from '@/types'
+import { error } from 'console'
 
-export const getPokemonDetail = async (slug: string): Promise<Pokemon | null> => {
-  if (!slug) return null
-  const pokemonData = await fetchPokemonByID(slug)
-  if (!pokemonData) return null
-  return adaptPokemon(pokemonData)
+export const getPokemonDetail = async (
+  slug: string
+): Promise<Pokemon | null> => {
+  try {
+    if (!slug) return null
+    const pokemonData = await fetchPokemonByID(slug)
+    if (!pokemonData) return null
+    return adaptPokemon(pokemonData)
+  } catch (error) {
+    return null
+    console.log(error)
+  }
 }
 
 export const getPokemonList = async () => {

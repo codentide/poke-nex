@@ -3,14 +3,10 @@ type ApiPokemonCries = {
   legacy: string
 }
 
-// type ApiPokemonAbility = {
-//   ability: {
-//     name: string
-//     url: string
-//   }
-//   is_hidden: boolean
-//   slot: number
-// }
+export type ApiLanguage = {
+  name: 'en' | 'es' | 'ja'
+  url: string
+}
 
 // type ApiPokemonForm = {
 //   name: string
@@ -35,7 +31,20 @@ type ApiPokemonCries = {
 //   | 'front_shiny'
 //   | 'front_shiny_female'
 
-type HomeSpriteKeys = 'front_default' | 'front_female' | 'front_shiny' | 'front_shiny_female'
+type ApiPokemonAbility = {
+  ability: {
+    name: string
+    url: string
+  }
+  is_hidden: boolean
+  slot: number
+}
+
+type HomeSpriteKeys =
+  | 'front_default'
+  | 'front_female'
+  | 'front_shiny'
+  | 'front_shiny_female'
 type ApiSprite = string | null
 type ApiPokemonSprites = {
   other: {
@@ -81,11 +90,32 @@ export type ApiPokemonResponse = {
   height: number
   weight: number
   sprites: ApiPokemonSprites
+  abilities: ApiPokemonAbility[]
+  genera: ApiSpeciesResponse['genera'] | null
+  flavor_text_entries: ApiSpeciesResponse['flavor_text_entries'] | null
+  species: {
+    name: string
+    url: string
+  }
 
-  // abilities: ApiPokemonAbility[]
   // forms: ApiPokemonForm[]
   // base_experience: number
   // game_indices: ApiGameIndex[]
   // location_area_encounters: string
   // cries: ApiPokemonCries
+}
+
+export type ApiSpeciesResponse = {
+  genera: {
+    genus: string
+    language: ApiLanguage
+  }[]
+  flavor_text_entries: {
+    flavor_text: string
+    language: ApiLanguage
+    version: {
+      name: string
+      url: string
+    }
+  }[]
 }
