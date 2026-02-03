@@ -8,6 +8,8 @@ import {
 const BASE_URL = process.env.POKEAPI_BASE_URL
 const LIMIT = process.env.POKEMON_LIST_LIMIT
 
+// [ ]: Refactorizar para lanzar una excepción cuando la respuesta no sea valida (throw)
+
 export const fetchPokemonByID = async (
   slug: string
 ): Promise<ApiPokemonResponse | null> => {

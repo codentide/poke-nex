@@ -7,6 +7,8 @@ import {
 import { flatEvolutionChain } from '@/lib/utils/pokemon.util'
 import { Pokemon } from '@/types'
 
+// [ ]: En vez de retornar null en errores retornar un objeto {data: null, error: error}
+
 export const getPokemonDetail = async (
   slug: string
 ): Promise<Pokemon | null> => {

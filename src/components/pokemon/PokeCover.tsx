@@ -31,15 +31,15 @@ export const PokeCover = ({ data }: Props) => {
   return (
     <>
       <div
-        className={`relative w-96 h-96 drop-shadow-2xl ${theme.glow} drop-shadow-[0_0_120px]`}
+        className={`relative aspect-square w-52 sm:w-72 lg:w-96 drop-shadow-2xl ${theme.glow} drop-shadow-[0_0_120px]`}
       >
         <button
           title="Toggle shiny form"
           onClick={() => setShiny((prev) => !prev)}
-          className={`isolate absolute z-10 top-0 right-0 p-3 rounded-full text-m cursor-pointer transition-all hover:brightness-150 
+          className={`isolate absolute z-10 top-0 -right-8 p-3 rounded-full text-m cursor-pointer transition-all hover:brightness-150 
           ${shiny ? `${theme.bg} ${theme.text}` : 'bg-white/5 text-white/60'}`}
         >
-          <PiStarFourFill className="text-2xl" />
+          <PiStarFourFill className="text-xl lg:text-2xl" />
         </button>
         <Image
           src={sprite}

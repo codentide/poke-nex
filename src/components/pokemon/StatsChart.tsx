@@ -53,6 +53,7 @@ export const StatsChart = ({ stats, hue }: Props) => {
       toolbar: {
         show: false,
       },
+      sparkline: { enabled: false },
     },
     xaxis: {
       labels: {
@@ -82,6 +83,14 @@ export const StatsChart = ({ stats, hue }: Props) => {
             ],
           },
         },
+      },
+    },
+    grid: {
+      padding: {
+        top: -32,
+        bottom: 0,
+        left: 0,
+        right: -12,
       },
     },
     dataLabels: {
@@ -116,11 +125,17 @@ export const StatsChart = ({ stats, hue }: Props) => {
   }
 
   return (
-    <div className="w-full flex flex-col gap-2">
-      <h3 className="text-4xl font-rajdhani font-semibold uppercase text-center text-white/60">
+    <div className="w-full flex flex-col gap-0 h-68 lg:h-120 mb-8">
+      <h3 className="text-4xl font-rajdhani font-semibold uppercase text-center text-white/60 mb-4">
         Base Stats
       </h3>
-      <Chart type="radar" series={series} options={options} height={520} />
+      <Chart
+        type="radar"
+        series={series}
+        options={options}
+        width="100%"
+        height="100%"
+      />
     </div>
   )
 }
