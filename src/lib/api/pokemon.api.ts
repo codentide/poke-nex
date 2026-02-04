@@ -11,20 +11,21 @@ const LIMIT = process.env.POKEMON_LIST_LIMIT
 // [ ]: Refactorizar para lanzar una excepción cuando la respuesta no sea valida (throw)
 
 export const fetchPokemonByID = async (
-  slug: string
+  slug: string,
+  extended = true
 ): Promise<ApiPokemonResponse | null> => {
   const response = await fetch(`${BASE_URL}/pokemon/${slug}`, {
     next: { revalidate: 86400 },
   })
   if (!response.ok) return null
-
   const data: ApiPokemonResponse = await response.json()
+  if (!extended) return data
   const speciesResponse = await fetch(data.species.url)
+  if (!speciesResponse.ok) return data
   const speciesData: ApiSpeciesResponse = await speciesResponse.json()
   data.genera = speciesData.genera
   data.flavor_text_entries = speciesData.flavor_text_entries
   data.evolution_chain = speciesData.evolution_chain
-
   return data
 }
 

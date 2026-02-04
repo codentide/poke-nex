@@ -1,3 +1,4 @@
+import { TYPE_CHART, TYPE_DEFENSE_CHART } from '@/constants'
 import { ApiEvolutionChainResponse, Pokemon, PokeType } from '@/types'
 
 export const getPokemonOfTheDay = (totalPokemons: number = 1025) => {
@@ -50,4 +51,40 @@ export const flatEvolutionChain = (
 
   dive(node)
   return flattened
+}
+
+export const getEffectivities = (types: PokeType['name'][]) => {
+  const damageMultipliers: Record<string, number> = {}
+
+  // Inicializamos todos los tipos de ataque posibles con 1x
+  Object.keys(TYPE_DEFENSE_CHART).forEach((type) => {
+    damageMultipliers[type] = 1
+  })
+
+  // Calculamos el acumulado defensivo
+  types.forEach((pokemonType) => {
+    const typeLower = pokemonType.toLowerCase()
+    const defenseRelations = TYPE_DEFENSE_CHART[typeLower]
+
+    if (defenseRelations) {
+      Object.keys(defenseRelations).forEach((attackerType) => {
+        damageMultipliers[attackerType] *= defenseRelations[attackerType]
+      })
+    }
+  })
+
+  // Filtramos los resultados para la UI
+  const weaknesses = Object.keys(damageMultipliers).filter(
+    (t) => damageMultipliers[t] > 1
+  ) as PokeType['name'][]
+
+  const resistances = Object.keys(damageMultipliers).filter(
+    (t) => damageMultipliers[t] < 1 && damageMultipliers[t] > 0
+  ) as PokeType['name'][]
+
+  const immunities = Object.keys(damageMultipliers).filter(
+    (t) => damageMultipliers[t] === 0
+  ) as PokeType['name'][]
+
+  return { weaknesses, resistances, immunities, multipliers: damageMultipliers }
 }

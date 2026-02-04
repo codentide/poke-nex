@@ -43,7 +43,7 @@ export const PokemonCard = memo(({ content }: Props) => {
           <div className="flex items-end justify-between">
             <div className="mt-2 flex gap-2">
               {content.types.map((type) => (
-                <TypeBadge key={type.name} type={type} />
+                <TypeBadge key={type.name} type={type.name} />
               ))}
             </div>
             <button

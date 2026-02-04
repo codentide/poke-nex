@@ -8,7 +8,7 @@ import {
   TypeBadge,
 } from '@/components/pokemon'
 import { POKE_THEMES } from '@/constants'
-import { capitalize, getMostColorfulType } from '@/lib/utils'
+import { capitalize, getEffectivities, getMostColorfulType } from '@/lib/utils'
 import { getPokemonDetail, getPokemonList } from '@/services/pokemon.service'
 
 interface Props {
@@ -37,7 +37,9 @@ export default async function PokemonDetailPage({ params }: Props) {
   const { slug } = await params
   const pokemonData = await getPokemonDetail(slug)
   if (!pokemonData) notFound()
-
+  const { weaknesses, multipliers, resistances, immunities } = getEffectivities(
+    pokemonData.types.map((type) => type.name)
+  )
   const type = getMostColorfulType(pokemonData.types)
   const theme = POKE_THEMES[type]
 
@@ -72,7 +74,7 @@ export default async function PokemonDetailPage({ params }: Props) {
         </h1>
         <div className="flex gap-2 w-fit">
           {pokemonData.types.map((type) => (
-            <TypeBadge key={type.name} type={type} />
+            <TypeBadge key={type.name} type={type.name} />
           ))}
         </div>
         <p className="w-full lg:w-[80%] font-inter text-center leading-relaxed text-white/50">
@@ -80,7 +82,51 @@ export default async function PokemonDetailPage({ params }: Props) {
         </p>
       </div>
       {/*  BENTO */}
-      <div className="w-full lg:w-fit grid grid-cols-2 lg:grid-cols-4 gap-1.5">
+      <div className="w-full lg:w-fit grid grid-cols-2 lg:grid-cols-4 gap-1.5 ">
+        {/* WEAKNESSES */}
+        {weaknesses.length > 0 && (
+          <div className="flex flex-col items-center gap-1 py-4 px-2 lg:px-8 rounded-lg border font-rajdhani border-zinc-900 bg-zinc-900/50 col-span-4">
+            <span className="text-md text-white/50">Weaknesses</span>
+            <div className="flex gap-2 w-fit">
+              {weaknesses.map((type) => (
+                <TypeBadge
+                  key={type}
+                  type={type}
+                  multiplier={multipliers[type]}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+        {/* R */}
+        {resistances.length > 0 && (
+          <div className="flex flex-col items-center gap-1 py-4 px-2 lg:px-8 rounded-lg border font-rajdhani border-zinc-900 bg-zinc-900/50 col-span-4">
+            <span className="text-md text-white/50">Resistances</span>
+            <div className="flex items-center gap-2 w-fit">
+              {resistances.map((type) => (
+                <TypeBadge
+                  key={type}
+                  type={type}
+                  multiplier={multipliers[type]}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+        {immunities.length > 0 && (
+          <div className="flex flex-col items-center gap-1 py-4 px-2 lg:px-8 rounded-lg border font-rajdhani border-zinc-900 bg-zinc-900/50 col-span-4">
+            <span className="text-md text-white/50">Immunities</span>
+            <div className="flex items-center gap-2 w-fit">
+              {immunities.map((type) => (
+                <TypeBadge
+                  key={type}
+                  type={type}
+                  multiplier={multipliers[type]}
+                />
+              ))}
+            </div>
+          </div>
+        )}
         <div className="flex flex-col items-center gap-1 py-4 px-2 lg:px-8 rounded-lg border font-rajdhani border-zinc-900 bg-zinc-900/50">
           <span className="text-md text-white/50">Weight</span>
           <span className="text-xl lg:text-2xl font-bold">
@@ -116,7 +162,9 @@ export default async function PokemonDetailPage({ params }: Props) {
       {/* GRÁFICA */}
       <StatsChart hue={theme?.hue} stats={pokemonData.stats} />
       {/* EVOLUTION CHAIN */}
-      <EvolutionChain theme={theme} id={pokemonData.evolution.id} />
+      {pokemonData.evolution && (
+        <EvolutionChain theme={theme} id={pokemonData.evolution.id} />
+      )}
     </main>
   )
 }

@@ -33,11 +33,15 @@ export const adaptPokemon = ({
   const abilities = mapAbilities(apiAbilities)
   const description = distillDescription(flavor_text_entries)
   const stats = mapStats(apiStats)
-  const evolution = {
-    id: distillEvolutionChainId(evolution_chain.url),
-    url: evolution_chain.url,
-    chain: [],
-  }
+  const evolution =
+    evolution_chain && evolution_chain.url
+      ? {
+          id: distillEvolutionChainId(evolution_chain.url),
+          url: evolution_chain.url,
+          chain: [],
+        }
+      : null
+
   return {
     id,
     name,

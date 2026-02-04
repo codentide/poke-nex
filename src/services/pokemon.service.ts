@@ -5,20 +5,21 @@ import {
   fetchPokemonList,
 } from '@/lib/api/pokemon.api'
 import { flatEvolutionChain } from '@/lib/utils/pokemon.util'
-import { Pokemon } from '@/types'
+import { Evolution, Pokemon } from '@/types'
 
 // [ ]: En vez de retornar null en errores retornar un objeto {data: null, error: error}
 
 export const getPokemonDetail = async (
-  slug: string
+  slug: string,
+  extended: boolean = true
 ): Promise<Pokemon | null> => {
   try {
     if (!slug) return null
-    const pokemonData = await fetchPokemonByID(slug)
-    if (!pokemonData) throw new Error('[GET-POKEMON-DETAIL]: Response is null')
+    const pokemonData = await fetchPokemonByID(slug, extended)
+    if (!pokemonData) throw new Error('Response is null')
     return adaptPokemon(pokemonData)
   } catch (error) {
-    console.error(error)
+    console.error('[GET-POKEMON-DETAIL]', error)
     return null
   }
 }
@@ -31,14 +32,14 @@ export const getPokemonList = async () => {
 
 export const getPokemonDetailList = async () => {
   const keyList = await getPokemonList()
-  const promises = keyList.map(({ name }) => getPokemonDetail(name))
+  const promises = keyList.map(({ name }) => getPokemonDetail(name, false))
   const result = await Promise.all(promises)
   return result.filter((pokemon) => pokemon != null)
 }
 
 export const getEvolutionChain = async (
   id: string | number
-): Promise<Pokemon['evolution']['chain']> => {
+): Promise<Evolution[]> => {
   try {
     if (!id) throw new Error('[GET-EVOLUTION-CHAIN]: ID is required')
     const evolutionResponse = await fetchEvolutionChain(id)
