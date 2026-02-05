@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { getEvolutionChain } from '@/services/pokemon.service'
-import { Pokemon } from '@/types'
+import { Evolution } from '@/types'
 import { BiChevronRight } from 'react-icons/bi'
 import { TypeTheme } from '@/constants'
 import Link from 'next/link'
@@ -13,7 +13,11 @@ interface Props {
 export const EvolutionChain = async ({ id, theme }: Props) => {
   if (!id) return null
 
-  const evolutionChain = await getEvolutionChain(id)
+  const { data: evolutionChain, error } = await getEvolutionChain(id)
+
+  if (error && error.code != 404) throw new Error(JSON.stringify(error))
+  if (!evolutionChain) return null
+
   const isEevee = evolutionChain[0].name === 'eevee'
 
   return (
@@ -22,7 +26,6 @@ export const EvolutionChain = async ({ id, theme }: Props) => {
         {isEevee ? 'Eeveelutions' : 'Evolutions'}
       </h3>
       <div className="flex flex-col lg:flex-row items-center justify-center gap-6 w-full">
-        {/* Cómo eevee tiene muchos tipos de evoluciones se renderiza diferente */}
         {isEevee ? (
           <>
             <EvolutionStepCard data={evolutionChain[0]} theme={theme} />
@@ -65,7 +68,7 @@ export const EvolutionChain = async ({ id, theme }: Props) => {
 }
 
 interface StepCardProps {
-  data: Pokemon['evolution']['chain'][number]
+  data: Evolution
   theme: TypeTheme
 }
 

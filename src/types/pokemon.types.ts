@@ -1,47 +1,43 @@
 import { POKEMON_TYPES, SORTS } from '@/constants/pokemon.constant'
 
-export type PokeStat = {
-  name: 'HP' | 'ATK' | 'DEF' | 'SPA' | 'SPD' | 'SPE'
-  value: number
-}
-export type PokeSort = (typeof SORTS)[keyof typeof SORTS]
 export type PokeType = {
   name: (typeof POKEMON_TYPES)[keyof typeof POKEMON_TYPES]
   url: string
 }
 
-type SpriteGroup = {
-  front: string
+export type PokeSort = (typeof SORTS)[keyof typeof SORTS]
+
+export type PokeStat = {
+  name: 'HP' | 'ATK' | 'DEF' | 'SPA' | 'SPD' | 'SPE'
+  value: number
 }
 
-type Assets = {
-  official: {
-    default: SpriteGroup
-    shiny: SpriteGroup
-  }
-  home: {
-    default: SpriteGroup
-    shiny: SpriteGroup
-  }
-}
-
-export type Evolution = {
+export interface Evolution {
   id: number
   name: string
   sprite: string
 }
 
+export type PokemonList = {
+  name: string
+  url: string
+}[]
+
+// Interfaz final del Pokémon en nuestra App
 export interface Pokemon {
   id: number
   name: string
-  height: number // "Stored in meters"
-  weight: number // "Stored in kilograms"
-  types: PokeType[]
+  height: number
+  weight: number
   genus: string
-  abilities: { name: string; hidden: boolean }[]
   description: string
-  assets: Assets
+  types: PokeType[]
   stats: PokeStat[]
+  abilities: { name: string; hidden: boolean }[]
+  assets: {
+    official: { default: string; shiny: string }
+    home: { default: string; shiny: string }
+  }
   evolution: {
     id: number
     chain: Evolution[]

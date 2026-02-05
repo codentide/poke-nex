@@ -19,7 +19,7 @@ export const PokeCover = ({ data }: Props) => {
   const type = getMostColorfulType(types)
   const theme = POKE_THEMES[type]
 
-  const sprite = shiny ? assets.home.shiny.front : assets.home.default.front
+  const sprite = shiny ? assets.home.shiny : assets.home.default
 
   useEffect(() => {
     const slug = pathname.split('/').pop()

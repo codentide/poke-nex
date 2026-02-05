@@ -55,20 +55,12 @@ export const adaptPokemon = ({
     evolution,
     assets: {
       official: {
-        default: {
-          front: artwork.front_default || dummyImage,
-        },
-        shiny: {
-          front: artwork.front_shiny || dummyImage,
-        },
+        default: artwork.front_default || dummyImage,
+        shiny: artwork.front_shiny || dummyImage,
       },
       home: {
-        default: {
-          front: home.front_default || dummyImage,
-        },
-        shiny: {
-          front: home.front_shiny || dummyImage,
-        },
+        default: home.front_default || dummyImage,
+        shiny: home.front_shiny || dummyImage,
       },
     },
   }

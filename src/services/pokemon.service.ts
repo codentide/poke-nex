@@ -4,49 +4,102 @@ import {
   fetchPokemonByID,
   fetchPokemonList,
 } from '@/lib/api/pokemon.api'
+import { handleServiceError } from '@/lib/utils/error.util'
 import { flatEvolutionChain } from '@/lib/utils/pokemon.util'
-import { Evolution, Pokemon } from '@/types'
-
-// [ ]: En vez de retornar null en errores retornar un objeto {data: null, error: error}
+import {
+  ApiError,
+  Evolution,
+  Pokemon,
+  PokemonList,
+  ServiceResponse,
+} from '@/types'
 
 export const getPokemonDetail = async (
   slug: string,
   extended: boolean = true
-): Promise<Pokemon | null> => {
+): Promise<ServiceResponse<Pokemon>> => {
   try {
-    if (!slug) return null
+    if (!slug) throw new Error('The Pokémon slug or ID is required.')
     const pokemonData = await fetchPokemonByID(slug, extended)
-    if (!pokemonData) throw new Error('Response is null')
-    return adaptPokemon(pokemonData)
+    if (!pokemonData) throw new ApiError('Pokémon data is null')
+    return { data: adaptPokemon(pokemonData), error: null }
   } catch (error) {
-    console.error('[GET-POKEMON-DETAIL]', error)
-    return null
+    const fault = handleServiceError(error, '[getPokemonDetail]')
+    return {
+      data: null,
+      error: fault,
+    }
   }
 }
 
-export const getPokemonList = async () => {
-  const pokemonList = await fetchPokemonList()
-  if (!pokemonList || pokemonList.results.length === 0) return []
-  return pokemonList.results
+export const getPokemonList = async (): Promise<
+  ServiceResponse<PokemonList>
+> => {
+  try {
+    const pokemonList = await fetchPokemonList()
+    if (!pokemonList || pokemonList.results.length === 0) {
+      throw new ApiError('Pokémon list is null')
+    }
+    return { data: pokemonList.results, error: null }
+  } catch (error) {
+    const fault = handleServiceError(error, '[getPokemonList]')
+    return {
+      data: null,
+      error: fault,
+    }
+  }
 }
 
-export const getPokemonDetailList = async () => {
-  const keyList = await getPokemonList()
-  const promises = keyList.map(({ name }) => getPokemonDetail(name, false))
-  const result = await Promise.all(promises)
-  return result.filter((pokemon) => pokemon != null)
+export const getPokemonDetailList = async (): Promise<
+  ServiceResponse<Pokemon[]>
+> => {
+  try {
+    const keyList = await getPokemonList()
+    if (!keyList.data) {
+      // En lugar de crear un nuevo ApiError, propagamos el error original
+      if (keyList.error) {
+        const originalError = new ApiError(
+          keyList.error.message,
+          typeof keyList.error.code === 'number'
+            ? keyList.error.code
+            : undefined,
+          keyList.error.context
+        )
+        throw originalError
+      }
+      throw new ApiError('Pokémon list is null')
+    }
+    const promises = keyList.data.map(({ name }) =>
+      getPokemonDetail(name, false)
+    )
+    const responses = await Promise.all(promises)
+    const result = responses
+      .filter((res) => res.data != null)
+      .map((res) => res.data)
+
+    return { data: result, error: null }
+  } catch (error) {
+    const fault = handleServiceError(error, '[getPokemonDetailList]')
+    return {
+      data: null,
+      error: fault,
+    }
+  }
 }
 
 export const getEvolutionChain = async (
   id: string | number
-): Promise<Evolution[]> => {
+): Promise<ServiceResponse<Evolution[]>> => {
   try {
-    if (!id) throw new Error('[GET-EVOLUTION-CHAIN]: ID is required')
+    if (!id) throw new Error('The Pokémon slug or ID is required.')
     const evolutionResponse = await fetchEvolutionChain(id)
-
-    return flatEvolutionChain(evolutionResponse.chain)
+    if (!evolutionResponse) throw new ApiError('Pokémon evolution is null')
+    return { data: flatEvolutionChain(evolutionResponse.chain), error: null }
   } catch (error) {
-    console.error(error)
-    return []
+    const fault = handleServiceError(error, '[getEvolutionChain]')
+    return {
+      data: null,
+      error: fault,
+    }
   }
 }

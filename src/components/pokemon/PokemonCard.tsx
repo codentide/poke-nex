@@ -16,7 +16,7 @@ interface Props {
 export const PokemonCard = memo(({ content }: Props) => {
   const [isFavorite, setIsFavorite] = useState(false)
 
-  const imageUrl = content.assets.home.default.front
+  const imageUrl = content.assets.home.default
   const formattedID = content.id.toString().padStart(3, '0')
   const primaryType = getMostColorfulType(content.types)
   const gradient = `bg-size-[200%_200%] bg-bottom-right to-50% bg-linear-to-tr ${POKE_THEMES[primaryType].gradient} to-zinc-900`
