@@ -16,27 +16,31 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const pokemonList = await getPokemonList()
-  return pokemonList.map((pokemon) => ({ slug: pokemon.name }))
+  const { data, error } = await getPokemonList()
+  if (error) throw new Error(JSON.stringify(error))
+  return data.map((pokemon) => ({ slug: pokemon.name }))
 }
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params
-  const pokemon = await getPokemonDetail(slug)
-  if (!pokemon) return { title: 'Pokémon not found' }
+  const { data, error } = await getPokemonDetail(slug)
+  if (!data || error) return { title: 'Pokémon not found' }
   return {
-    title: `${capitalize(pokemon.name)} | Pokénex Pro`,
-    description: `Details, types, and statistics of ${pokemon.name}.`,
+    title: `${capitalize(data.name)} | Pokénex Pro`,
+    description: `Details, types, and statistics of ${data.name}.`,
     openGraph: {
-      images: [pokemon.assets.home.default.front || ''],
+      images: [data.assets.home.default || ''],
     },
   }
 }
 
 export default async function PokemonDetailPage({ params }: Props) {
   const { slug } = await params
-  const pokemonData = await getPokemonDetail(slug)
+  const { data: pokemonData, error } = await getPokemonDetail(slug)
+
+  if (error && error.code != 404) throw new Error(JSON.stringify(error))
   if (!pokemonData) notFound()
+
   const { weaknesses, multipliers, resistances, immunities } = getEffectivities(
     pokemonData.types.map((type) => type.name)
   )

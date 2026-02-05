@@ -1,5 +1,5 @@
-import { TYPE_CHART, TYPE_DEFENSE_CHART } from '@/constants'
-import { ApiEvolutionChainResponse, Pokemon, PokeType } from '@/types'
+import { TYPE_DEFENSE_CHART } from '@/constants'
+import { ApiEvolutionChainResponse, Evolution, PokeType } from '@/types'
 
 export const getPokemonOfTheDay = (totalPokemons: number = 1025) => {
   const today = new Date()
@@ -34,8 +34,8 @@ export const getMostColorfulType = (types: PokeType[]): PokeType['name'] => {
 
 export const flatEvolutionChain = (
   node: ApiEvolutionChainResponse['chain']
-): Pokemon['evolution']['chain'] => {
-  const flattened: Pokemon['evolution']['chain'] = []
+): Evolution[] => {
+  const flattened: Evolution[] = []
 
   const dive = (current: ApiEvolutionChainResponse['chain']) => {
     const id = current.species.url.split('/').filter(Boolean).pop()
