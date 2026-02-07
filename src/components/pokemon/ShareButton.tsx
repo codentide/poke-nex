@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { BiCheck } from 'react-icons/bi'
 import { MdShare } from 'react-icons/md'
-import { Button } from './Button'
+import { Button } from '../ui/Button'
 
 export const ShareButton = () => {
   const [copied, setCopied] = useState(false)

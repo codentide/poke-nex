@@ -3,16 +3,15 @@ import {
   DetailHero,
   EvolutionChain,
   StatsChart,
+  ShareButton,
 } from '@/components/pokemon'
+import { FavoriteButton } from '@/components/pokemon/FavoriteButton'
 import { Button } from '@/components/ui/Button'
-import { ShareButton } from '@/components/ui/ShareButton'
 import { POKE_THEMES } from '@/constants'
 import { capitalize, getMostColorfulType } from '@/lib/utils'
 import { getPokemonDetail, getPokemonList } from '@/services/pokemon.service'
 import { notFound } from 'next/navigation'
-import { BiShare } from 'react-icons/bi'
 import { IoHeart } from 'react-icons/io5'
-import { MdShare } from 'react-icons/md'
 
 interface Props {
   params: { slug: string }
@@ -58,10 +57,7 @@ export default async function PokemonDetailPage({ params }: Props) {
         <EvolutionChain theme={theme} id={pokemonData.evolution.id} />
       )}
       <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-fit">
-        <Button className="flex items-center justify-center gap-3 w-full md:w-fit">
-          <IoHeart size={20} />
-          Add to Favorites
-        </Button>
+        <FavoriteButton pokemon={pokemonData} />
         <ShareButton />
       </div>
     </main>

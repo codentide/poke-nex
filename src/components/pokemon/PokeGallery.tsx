@@ -1,16 +1,19 @@
 'use client'
 
-import { usePaginate } from '@/hooks/usePaginate'
-import { usePokeFilters } from '@/hooks/usePokeFilters'
-import { Pokemon } from '@/types'
 import { useState } from 'react'
-import { GridContainer, PaginationControl } from '../ui'
-import { FilterBar } from '../ui/FilterBar'
-import { ListContainer } from '../ui/ListContainer'
+import { usePaginate, usePokeFilters } from '@/hooks'
+import { Pokemon } from '@/types'
+import {
+  FilterBar,
+  ListContainer,
+  GridContainer,
+  PaginationControl,
+} from '../ui'
 import { PokemonCard } from './PokemonCard'
 
 interface Props {
   content: Pokemon[]
+  emptyMessage?: string
 }
 
 export type View = 'grid' | 'list'
@@ -38,7 +41,7 @@ export const PokeGallery = ({ content }: Props) => {
   } = usePaginate(filteredList, 12)
 
   return (
-    <section className="flex flex-col gap-16 max-w-7xl">
+    <section className="flex flex-col gap-16 max-w-7xl min-h-[68vh]">
       <FilterBar
         search={filterState.search}
         selectedTypes={filterState.types}
@@ -51,11 +54,19 @@ export const PokeGallery = ({ content }: Props) => {
         onViewUpdate={setView}
       />
 
-      <Container>
-        {paginatedList.map((pokemon) => (
-          <PokemonCard key={pokemon.id} content={pokemon} />
-        ))}
-      </Container>
+      {paginatedList.length > 0 ? (
+        <Container>
+          {paginatedList.map((pokemon) => (
+            <PokemonCard key={pokemon.id} content={pokemon} />
+          ))}
+        </Container>
+      ) : (
+        <div className="col-span-full py-20 text-center">
+          <p className="text-zinc-500 italic">
+            No specimens match your current filters.
+          </p>
+        </div>
+      )}
 
       <PaginationControl
         current={current}
