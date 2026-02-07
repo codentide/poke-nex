@@ -5,7 +5,7 @@ import { FaTrash } from 'react-icons/fa6'
 import { HiMiniListBullet } from 'react-icons/hi2'
 import { IoGrid } from 'react-icons/io5'
 import { CustomSelect, CustomSelectProps } from './CustomSelect'
-import { TypeIcon } from './TypeIcon'
+import { TypeIcon } from '../pokemon/TypeIcon'
 
 interface Props {
   search: string
