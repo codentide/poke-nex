@@ -1,3 +1,5 @@
+'use client'
+
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
 import { PageBadge } from './PageBadge'
 import { calculatePageButtons } from '@/lib/utils/pagination.util'

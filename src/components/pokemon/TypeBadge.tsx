@@ -12,7 +12,7 @@ export const TypeBadge = ({ type, multiplier }: Props) => {
   return (
     <div
       key={type}
-      className={`flex items-center justify-center gap-2 w-fit font-rajdhani rounded-sm px-3 py-0.5 text-sm font-bold uppercase ${theme.bg} ${theme.text}`}
+      className={`flex items-center justify-between xs:justify-center gap-2 w-full xs:w-fit font-rajdhani rounded-sm px-3 py-0.5 text-sm font-bold uppercase ${theme.bg} ${theme.text}`}
     >
       {type}
       {multiplier != null && multiplier !== 1 && multiplier !== 0 && (

@@ -6,7 +6,7 @@ export default async function Home() {
   if (error) throw new Error(JSON.stringify(error))
 
   return (
-    <main className="flex flex-col gap-8 min-h-screen py-12 px-[4%] md:px-[20%] ">
+    <main className="flex flex-col gap-8 min-h-screen py-12 px-[4%] md:px-[12%] lg:px-[20%] ">
       <PokeGallery content={pokeList} />
     </main>
   )
