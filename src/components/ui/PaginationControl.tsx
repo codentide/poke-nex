@@ -1,5 +1,6 @@
+'use client'
+
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
-import { PageBadge } from './PageBadge'
 import { calculatePageButtons } from '@/lib/utils/pagination.util'
 import { HiEllipsisHorizontal } from 'react-icons/hi2'
 import { useIsMobile } from '@/hooks/useIsMobile'
@@ -23,7 +24,7 @@ export const PaginationControl = ({
   const pageButtons = calculatePageButtons(current, total, isMobile ? 2 : 3)
 
   return (
-    <div className="flex gap-4 lg:gap-10 lg:mx-auto font-rajdhani">
+    <div className="flex justify-between gap-4 lg:gap-10 lg:mx-auto font-rajdhani mt-auto">
       <button
         className="flex items-center justify-center gap-2  px-4 py-2 font-bold text-zinc-200 bg-zinc-800 border border-white/10 rounded-md cursor-pointer hover:shadow-md hover:brightness-125 active:scale-95 disabled:opacity-25 disabled:pointer-events-none transition-all"
         onClick={onPrev}
@@ -66,5 +67,26 @@ export const PaginationControl = ({
         <FaAngleRight className="text-zinc-400" />
       </button>
     </div>
+  )
+}
+
+interface PageBadgeProps {
+  active?: boolean
+  page: number
+  onClick?: (page: number) => void
+}
+
+const PageBadge = ({ active, page, onClick }: PageBadgeProps) => {
+  const handleClick = () => {
+    if (onClick) onClick(page)
+  }
+
+  return (
+    <button
+      className={`grid place-items-center w-8.5 h-full aspect-[1/1.2] rounded-md font-bold text-lg cursor-pointer ${active ? 'bg-zinc-200 text-zinc-800' : 'bg-zinc-800 text-zinc-400 '}`}
+      onClick={handleClick}
+    >
+      {page}
+    </button>
   )
 }

@@ -1,28 +1,52 @@
-# Roadmap: Pokénex Pro (Next.js + Clean Architecture)
+# 🗺️ Roadmap: Pokénex Pro
 
-### Fase 1: Cimientos y Data (El Core) ✅
+Este documento detalla el camino a seguir para convertir este proyecto en una aplicación de nivel profesional, asegurando mantenibilidad, rendimiento y visibilidad.
 
-- [x] Configuración de capas: Fetcher (API), Adaptador y Servicio.
-- [x] Tipado estricto: Interfaces para la API y Tipos de Dominio.
-- [x] Estrategia de Caché: Implementación de ISR (Incremental Static Regeneration).
+## Fase 1: Persistencia y Experiencia de Usuario
 
-### Fase 2: El Detalle del Pokémon (Visualización) ✅
+### Sistema de Favoritos:
 
-- [x] Imagen de alta calidad: Integración de official-artwork.
-- [x] Diccionario de colores: Mapeo de tipos a colores de Tailwind.
-- [x] Manejo de errores: Implementación de notFound() para slugs inexistentes.
-- [x] Datos físicos: Conversión de unidades (Altura en metros, Peso en kg).
+- Crear un contexto o estado global (Zustand/Context API) para manejar los Pokémon favoritos.
+- Implementar persistencia de datos mediante LocalStorage para que los favoritos se mantengan tras recargar la página.
+- Añadir botón de "Favorito" (corazón) tanto en la galería principal como en la vista de detalle.
 
-Fase 3: Optimización y SSG ⚡
+### Garantizar Responsividad:
 
-- [x] Static Params: Generación estática basada en slug (nombres).
-- [x] Validación de Build: Verificación de los 151 paths generados en producción.
-- [x] SEO dinámico: Configuración de generateMetadata para títulos y descripciones únicas.
-- [ ] Optimización de Imágenes: Uso del componente <Image /> de Next.js para evitar Cumulative Layout Shift (CLS).
+- Auditoría completa de la interfaz en dispositivos móviles (Mobile First).
+- Optimización de elementos táctiles (botones y navegación).
+- Asegurar que el diseño se adapte correctamente a pantallas grandes (Desktop).
 
-Fase 4: El Listado (Home) e Interacción 🏠
+## Fase 2: Mejoras de Interfaz (UI/UX)
 
-- [x] Data Fetching Pro: Implementación de getFullPokemonList con Promise.all para hidratar el Home.
-- [x] Arquitectura de Componentes: Separación en /components/ui (Badges) y /components/pokemon (Cards).
-- [x] Grid Estático: Renderizado de las 151 tarjetas con toda su info (ID, Tipos, Sprites) desde el servidor.
-- [x] Buscador Client-Side: Filtrado rápido sobre la lista estática ya cargada.
+### Modos de Visualización en Poke Gallery:
+
+- Implementar un selector de vista: Grilla (actual) vs Lista.
+- La vista de lista debe mostrar estadísticas rápidas (HP, Ataque, etc.) para facilitar la comparación.
+
+### Filtros Avanzados:
+
+- Filtrar Pokémon por tipo (Fuego, Agua, etc.).
+- Barra de búsqueda con sugerencias en tiempo real (debounce).
+
+## Fase 3: Dominio del SEO y Visibilidad
+
+### Asegurar el SEO:
+
+- Generar un `sitemap.xml` dinámico para que Google indexe los 151 Pokémon.
+- Configurar el archivo `robots.txt`.
+- Implementar JSON-LD (Datos Estructurados) en las páginas de detalle para mejorar el posicionamiento en buscadores.
+
+### Imágenes de Respaldo y Social:
+
+- Implementar la imagen de fallback (Pokéball) para el metadata cuando no haya imagen disponible.
+- Configurar una imagen de OpenGraph por defecto para la página principal.
+
+## Fase 4: Refinamiento Técnico
+
+### Optimización de Imágenes:
+
+- Uso estricto de `next/image` con placeholders de carga (blur effect).
+
+### Manejo de Errores Pro:
+
+- Crear vistas personalizadas para `error.tsx` y mejorar la página de Pokémon no encontrado.

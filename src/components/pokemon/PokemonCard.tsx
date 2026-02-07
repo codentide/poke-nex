@@ -1,20 +1,23 @@
 'use client'
 
-import { POKE_THEMES } from '@/constants'
 import { getMostColorfulType } from '@/lib/utils/pokemon.util'
-import { Pokemon } from '@/types'
-import Image from 'next/image' // ¡Aprovechemos el componente de Next!
-import Link from 'next/link'
-import { memo, useState } from 'react'
-import { IoHeart } from 'react-icons/io5'
+import { useFavoriteActions, useIsFavorite } from '@/stores/favorite.store'
+import { POKE_THEMES } from '@/constants'
 import { TypeBadge } from './TypeBadge'
+import { Pokemon } from '@/types'
+
+import { IoHeart } from 'react-icons/io5'
+import Image from 'next/image'
+import Link from 'next/link'
+import { memo } from 'react'
 
 interface Props {
   content: Pokemon
 }
 
 export const PokemonCard = memo(({ content }: Props) => {
-  const [isFavorite, setIsFavorite] = useState(false)
+  const toggleFavorite = useFavoriteActions().toggleFavorite
+  const isFavorite = useIsFavorite(content.id)
 
   const imageUrl = content.assets.home.default
   const formattedID = content.id.toString().padStart(3, '0')
@@ -51,8 +54,13 @@ export const PokemonCard = memo(({ content }: Props) => {
               onClick={(event) => {
                 event.preventDefault()
                 event.stopPropagation()
-                setIsFavorite((prev) => !prev)
-                console.log(content.name, 'agregado a favoritos...')
+                toggleFavorite(content)
+                console.log(
+                  content.name,
+                  !isFavorite
+                    ? 'Agregado a favoritos...'
+                    : 'Removido de favoritos...'
+                )
               }}
             >
               <IoHeart

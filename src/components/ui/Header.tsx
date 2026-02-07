@@ -13,7 +13,7 @@ export const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/5 bg-black/50 backdrop-blur-md">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+      <div className="w-full flex h-16 items-center justify-between px-[4%] md:px-[12%] lg:px-[20%]">
         <Link
           href="/"
           className="flex items-center gap-2 transition-transform hover:scale-105"
@@ -22,7 +22,7 @@ export const Header = () => {
             <Image fill src="/logo-white.svg" alt="PokeLogo" />
           </div>
           <span className="font-rajdhani text-xl font-bold tracking-wider uppercase">
-            Poke<span className="text-white/50">Nex</span>
+            Pokénex<span className="text-lime-300">Pro</span>
           </span>
         </Link>
 
