@@ -1,17 +1,17 @@
 import {
   DetailBento,
   DetailHero,
+  DetailStats,
   EvolutionChain,
-  StatsChart,
   ShareButton,
 } from '@/components/pokemon'
 import { FavoriteButton } from '@/components/pokemon/FavoriteButton'
-import { Button } from '@/components/ui/Button'
+import { EvolutionChainSkeleton } from '@/components/skeletons'
 import { POKE_THEMES } from '@/constants'
 import { capitalize, getMostColorfulType } from '@/lib/utils'
 import { getPokemonDetail, getPokemonList } from '@/services/pokemon.service'
 import { notFound } from 'next/navigation'
-import { IoHeart } from 'react-icons/io5'
+import { Suspense } from 'react'
 
 interface Props {
   params: { slug: string }
@@ -51,10 +51,11 @@ export default async function PokemonDetailPage({ params }: Props) {
     <main className="w-full min-h-screen flex flex-col items-center gap-12 px-[4%] py-12 lg:pn-24 ">
       <DetailHero data={pokemonData} />
       <DetailBento data={pokemonData} />
-      <StatsChart hue={theme?.hue} stats={pokemonData.stats} />
-      {/* Suspense + Bones */}
+      <DetailStats hue={theme?.hue} stats={pokemonData.stats} />
       {pokemonData.evolution && (
-        <EvolutionChain theme={theme} id={pokemonData.evolution.id} />
+        <Suspense fallback={<EvolutionChainSkeleton />}>
+          <EvolutionChain theme={theme} id={pokemonData.evolution.id} />
+        </Suspense>
       )}
       <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-fit">
         <FavoriteButton pokemon={pokemonData} />

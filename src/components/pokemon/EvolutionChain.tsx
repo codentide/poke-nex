@@ -12,7 +12,6 @@ interface Props {
 
 export const EvolutionChain = async ({ id, theme }: Props) => {
   if (!id) return null
-
   const { data: evolutionChain, error } = await getEvolutionChain(id)
 
   if (error && error.code != 404) throw new Error(JSON.stringify(error))

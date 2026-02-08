@@ -3,10 +3,10 @@
 import { POKE_THEMES } from '@/constants'
 import { getMostColorfulType } from '@/lib/utils/pokemon.util'
 import { Pokemon } from '@/types'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { PiStarFourFill } from 'react-icons/pi'
+import { SpriteImage } from '../ui'
 
 interface Props {
   data: Pokemon
@@ -40,12 +40,15 @@ export const DetailCover = ({ data }: Props) => {
       >
         <PiStarFourFill className="text-xl lg:text-2xl" />
       </button>
-      <Image
+      <SpriteImage
+        key={sprite}
         src={sprite}
         alt={`${shiny ? 'Shiny ' : ''}${name} image`}
+        theme={theme}
         fill
-        className="object-contain z-0"
-        priority
+        loading="eager"
+        className="z-0"
+        skeletonClassName="w-3/4 h-3/4"
         sizes="(max-width: 768px) 100vw, 50vw"
       />
       {shiny && (
