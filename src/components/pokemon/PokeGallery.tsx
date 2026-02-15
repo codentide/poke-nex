@@ -5,11 +5,10 @@ import { usePaginate, usePokeFilters } from '@/hooks'
 import { Pokemon } from '@/types'
 import {
   FilterBar,
-  ListContainer,
   GridContainer,
   PaginationControl,
 } from '../ui'
-import { PokemonCard } from './PokemonCard'
+import { PokemonCard, PokemonTable } from './'
 
 interface Props {
   content: Pokemon[]
@@ -20,7 +19,6 @@ export type View = 'grid' | 'list'
 
 export const PokeGallery = ({ content }: Props) => {
   const [view, setView] = useState<View>('grid')
-  const Container = view === 'grid' ? GridContainer : ListContainer
 
   const {
     list: filteredList,
@@ -55,11 +53,15 @@ export const PokeGallery = ({ content }: Props) => {
       />
 
       {paginatedList.length > 0 ? (
-        <Container>
-          {paginatedList.map((pokemon) => (
-            <PokemonCard key={pokemon.id} content={pokemon} />
-          ))}
-        </Container>
+        view === 'grid' ? (
+          <GridContainer>
+            {paginatedList.map((pokemon) => (
+              <PokemonCard key={pokemon.id} content={pokemon} />
+            ))}
+          </GridContainer>
+        ) : (
+          <PokemonTable content={paginatedList} />
+        )
       ) : (
         <div className="col-span-full py-20 text-center">
           <p className="text-zinc-500 italic">

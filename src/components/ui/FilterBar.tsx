@@ -38,7 +38,7 @@ export const FilterBar = ({
   onViewUpdate,
 }: Props) => {
   return (
-    <div className="flex flex-col gap-4 p-4 rounded-xl bg-zinc-900 border border-zinc-800 ">
+    <div className="flex flex-col gap-4 p-2.5 lg:p-4 rounded-xl bg-zinc-900 border border-zinc-800 ">
       <div className="flex flex-col lg:flex-row gap-2.5 items-stretch justify-between lg:h-10">
         <input
           type="text"
@@ -79,7 +79,7 @@ export const FilterBar = ({
                 key={type}
                 onClick={() => onToggleType(type)}
                 className={`
-                  p-2 rounded-full text-xs font-semibold uppercase cursor-pointer hover:brightness-[1.2] transition-all focus:brightness-[1.5] focus:outline-none
+                  p-[6px] md:p-2 rounded-full text-xs font-semibold uppercase cursor-pointer hover:brightness-[1.2] transition-all focus:brightness-[1.5] focus:outline-none
                   ${
                     isSelected
                       ? `${theme.bg} ${theme.text} `
@@ -87,7 +87,7 @@ export const FilterBar = ({
                   }
                 `}
               >
-                <TypeIcon type={type} size={18} />
+                <TypeIcon type={type} size={16} />
               </button>
             )
           })}
