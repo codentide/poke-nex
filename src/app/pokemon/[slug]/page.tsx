@@ -1,14 +1,12 @@
 import {
-  DetailBento,
-  DetailHero,
-  DetailStats,
+  PokemonDetailView,
   EvolutionChain,
   ShareButton,
 } from '@/components/pokemon'
 import { FavoriteButton } from '@/components/pokemon/FavoriteButton'
 import { EvolutionChainSkeleton } from '@/components/skeletons'
 import { POKE_THEMES } from '@/constants'
-import { capitalize, getMostColorfulType } from '@/lib/utils'
+import { getMostColorfulType } from '@/lib/utils'
 import { getPokemonDetail, getPokemonList } from '@/services/pokemon.service'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
@@ -28,7 +26,7 @@ export async function generateMetadata({ params }: Props) {
   const { data, error } = await getPokemonDetail(slug)
   if (!data || error) return { title: 'Pokémon not found' }
   return {
-    title: `${capitalize(data.name)} | Pokénex Pro`,
+    title: `${data.name.charAt(0).toUpperCase() + data.name.slice(1)} | Pokénex Pro`,
     description: `Details, types, and statistics of ${data.name}.`,
     openGraph: {
       images: [data.assets.home.default || ''],
@@ -49,9 +47,7 @@ export default async function PokemonDetailPage({ params }: Props) {
 
   return (
     <main className="w-full min-h-screen flex flex-col items-center gap-12 px-[4%] py-12 lg:pn-24 ">
-      <DetailHero data={pokemonData} />
-      <DetailBento data={pokemonData} />
-      <DetailStats hue={theme?.hue} stats={pokemonData.stats} />
+      <PokemonDetailView data={pokemonData} />
       {pokemonData.evolution && (
         <Suspense fallback={<EvolutionChainSkeleton />}>
           <EvolutionChain theme={theme} id={pokemonData.evolution.id} />

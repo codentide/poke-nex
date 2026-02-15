@@ -1,29 +1,35 @@
 'use client'
 
-import { POKE_THEMES } from '@/constants'
-import { getMostColorfulType } from '@/lib/utils/pokemon.util'
-import { Pokemon, PokeVariety } from '@/types'
+import { TypeTheme } from '@/constants'
+import { Pokemon, PokeType, PokeVariety } from '@/types'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { SpriteImage } from '../ui'
 import { TypeBadge } from './TypeBadge'
 import { VarietyControls } from './VarietyControls'
 
 interface Props {
   data: Pokemon
+  selectedVariety: PokeVariety
+  isShiny: boolean
+  onSelectVariety: (variety: PokeVariety) => void
+  onToggleShiny: (shiny: boolean) => void
+  theme: TypeTheme
+  currentTypes: PokeType[]
 }
 
-export const DetailCover = ({ data }: Props) => {
-  const [shiny, setShiny] = useState<boolean>(false)
-  const [selectedVariety, setSelectedVariety] = useState<PokeVariety>(
-    data.varieties.find((variety) => variety.isDefault) || data.varieties[0]
-  )
-  const currentTypes = selectedVariety.types.length > 0 ? selectedVariety.types : data.types
+export const DetailCover = ({
+  data,
+  selectedVariety,
+  isShiny,
+  onSelectVariety,
+  onToggleShiny,
+  theme,
+  currentTypes,
+}: Props) => {
   const pathname = usePathname()
-  const type = getMostColorfulType(currentTypes)
-  const theme = POKE_THEMES[type]
 
-  const sprite = shiny
+  const sprite = isShiny
     ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/${selectedVariety.pokemonId}.png`
     : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${selectedVariety.pokemonId}.png`
 
@@ -39,9 +45,9 @@ export const DetailCover = ({ data }: Props) => {
       <VarietyControls
         varieties={data.varieties}
         selectedVariety={selectedVariety}
-        onSelectVariety={setSelectedVariety}
-        isShiny={shiny}
-        onToggleShiny={setShiny}
+        onSelectVariety={onSelectVariety}
+        isShiny={isShiny}
+        onToggleShiny={onToggleShiny}
         theme={theme}
       />
 
@@ -53,7 +59,7 @@ export const DetailCover = ({ data }: Props) => {
           <SpriteImage
             key={sprite}
             src={sprite}
-            alt={`${shiny ? 'Shiny ' : ''}${selectedVariety.name} image`}
+            alt={`${isShiny ? 'Shiny ' : ''}${selectedVariety.name} image`}
             theme={theme}
             fill
             loading="eager"
@@ -61,7 +67,7 @@ export const DetailCover = ({ data }: Props) => {
             skeletonClassName="w-3/4 h-3/4"
             sizes="(max-width: 768px) 100vw, 50vw"
           />
-          {shiny && (
+          {isShiny && (
             <small className="absolute -bottom-20 left-[50%] translate-x-[-50%] font-rajdhani text-sm lg:text-xl uppercase tracking-widest text-zinc-100/40">
               (Shiny Form)
             </small>

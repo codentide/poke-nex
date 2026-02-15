@@ -28,6 +28,12 @@ export interface PokeVariety {
   isDefault: boolean
   pokemonId: number
   types: PokeType[]
+  stats: PokeStat[]
+  abilities: { name: string; hidden: boolean }[]
+  weight: number
+  height: number
+  genus: string
+  description: string
 }
 
 // Interfaz final del Pokémon en nuestra App

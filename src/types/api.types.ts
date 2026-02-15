@@ -55,6 +55,10 @@ export interface ApiVariety {
     url: string
   }
   types?: ApiPokemonType[]
+  stats?: ApiPokemonStat[]
+  abilities?: ApiPokemonAbility[]
+  weight?: number
+  height?: number
 }
 
 // El Objeto Principal que llega de la API

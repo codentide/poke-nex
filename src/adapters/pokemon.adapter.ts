@@ -39,7 +39,7 @@ export const adaptPokemon = ({
         chain: [],
       }
       : null
-  const varieties = mapVarieties(apiVarieties || [])
+  const varieties = mapVarieties(apiVarieties || [], genus, description)
 
   return {
     id,
@@ -118,15 +118,24 @@ const distillEvolutionChainId = (url: string) => {
 }
 
 const mapVarieties = (
-  apiVarieties: NonNullable<ApiPokemonResponse['varieties']>
+  apiVarieties: NonNullable<ApiPokemonResponse['varieties']>,
+  genus: string,
+  description: string
 ) => {
-  return apiVarieties.map(({ is_default, pokemon, types }) => {
+  return apiVarieties.map((variety) => {
+    const { is_default, pokemon, types, stats, abilities, weight = 0, height = 0 } = variety
     const pokemonId = distillEvolutionChainId(pokemon.url)
     return {
       name: pokemon.name.replace(/-/g, ' '),
       isDefault: is_default,
       pokemonId,
       types: mapTypes(types || []),
+      stats: mapStats(stats || []),
+      abilities: mapAbilities(abilities || []),
+      weight: weight / 10,
+      height: height / 10,
+      genus,
+      description,
     }
   })
 }
