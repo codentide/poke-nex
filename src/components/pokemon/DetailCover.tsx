@@ -54,7 +54,7 @@ export const DetailCover = ({
       <div className="mt-10 mb-8">
         {/* Pokemon Image */}
         <div
-          className={`relative aspect-square w-50 xs:w-72 md:w-100 drop-shadow-2xl ${theme.glow} drop-shadow-[0_0_120px] mb-8`}
+          className={`relative aspect-square w-68 xs:w-72 md:w-100 drop-shadow-2xl ${theme.glow} drop-shadow-[0_0_120px] mb-8`}
         >
           <SpriteImage
             key={sprite}
@@ -75,6 +75,7 @@ export const DetailCover = ({
         </div>
       </div>
 
+      {/* TODO: Poodemos sacar esto fuera para evitar acoplamiento */}
       {/* Dynamic Title */}
       <h1 className="w-full mt-4 text-4xl sm:text-6xl lg:text-8xl font-rajdhani font-semibold uppercase text-center animate-[fade-in_0.5s_ease-out]">
         {selectedVariety.name}

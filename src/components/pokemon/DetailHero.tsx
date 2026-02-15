@@ -28,14 +28,12 @@ export const DetailHero = ({
         N° {data.id.toString().padStart(4, '0')}
       </small>
       <div className="relative flex items-center justify-center gap-4 md:gap-12 w-full">
-        {data.id > 1 && (
-          <ArrowButton
-            className="absolute xs:static -left-3"
-            direction="left"
-            type="link"
-            href={`/pokemon/${data.id - 1}`}
-          />
-        )}
+        <ArrowButton
+          className={`absolute md:static -left-3 ${data.id > 1 ? 'visible' : 'invisible'}`}
+          direction="left"
+          type="link"
+          href={`/pokemon/${data.id - 1}`}
+        />
         <DetailCover
           data={data}
           selectedVariety={selectedVariety}
@@ -45,14 +43,12 @@ export const DetailHero = ({
           theme={theme}
           currentTypes={currentTypes}
         />
-        {data.id < 1025 && (
-          <ArrowButton
-            className="absolute xs:static -right-3"
-            direction="right"
-            type="link"
-            href={`/pokemon/${data.id + 1}`}
-          />
-        )}
+        <ArrowButton
+          className={`absolute md:static -right-3 ${data.id < 1025 ? 'visible' : 'invisible'}`}
+          direction="right"
+          type="link"
+          href={`/pokemon/${data.id + 1}`}
+        />
       </div>
       <h1 className="sr-only">{data.name}</h1>
       <p className="w-full lg:w-[80%] font-inter text-center leading-relaxed text-white/50">
