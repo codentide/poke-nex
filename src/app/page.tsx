@@ -1,5 +1,19 @@
 import { PokeGallery } from '@/components/pokemon'
 import { getPokemonDetailList } from '@/services/pokemon.service'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Pokenéx PRO',
+  description: 'Discover stats, types, and build your favorite collection.',
+  keywords: ['Pokémon', 'PokeAPI', 'Pokémon Gallery'],
+  openGraph: {
+    title: 'Pokenéx PRO',
+    description: 'Discover details and stats of your favorite Pokémon in a polished, modern interface.',
+    url: 'https://poke-nex.vercel.app',
+    siteName: 'Pokenéx PRO',
+    type: 'website',
+  },
+}
 
 export default async function Home() {
   const { data: pokeList, error } = await getPokemonDetailList()

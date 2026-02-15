@@ -40,7 +40,7 @@ const TableRow = memo(({ pokemon }: { pokemon: Pokemon }) => {
       onClick={handleRowClick}
       className="group border-b border-zinc-800/50 hover:bg-zinc-800/60 transition-colors font-rajdhani cursor-pointer"
     >
-      <td className="py-4 pl-4 pr-2 text-zinc-500 font-medium">#{id}</td>
+      <td className="py-4 pl-4 pr-2 text-zinc-500 text-sm">{id}</td>
       <td className="py-4 px-2">
         <div className="flex items-center gap-2.5 lg:gap-4 group/link">
           <div className="relative w-12 h-12 flex-shrink-0">
@@ -53,7 +53,7 @@ const TableRow = memo(({ pokemon }: { pokemon: Pokemon }) => {
               className="object-contain group-hover/link:scale-110 transition-transform"
             />
           </div>
-          <span className="text-md lg:text-lg lg:font-bold capitalize text-zinc-100 group-hover/link:text-zinc-300 transition-colors">
+          <span className="text-sm lg:text-lg lg:font-bold capitalize text-zinc-100 group-hover/link:text-zinc-300 transition-colors">
             {pokemon.name}
           </span>
         </div>
@@ -65,7 +65,7 @@ const TableRow = memo(({ pokemon }: { pokemon: Pokemon }) => {
             return (
               <div key={type.name}>
                 {/* Mobile: Icons */}
-                <div className={`${typeTheme.bg} p-1.5 rounded-full sm:hidden`}>
+                <div className={`${typeTheme.bg} p-2 rounded-full sm:hidden`}>
                   <TypeIcon type={type.name} size={14} className={typeTheme.text} />
                 </div>
                 {/* Desktop: Badges */}

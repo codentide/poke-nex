@@ -59,7 +59,7 @@ export const FilterBar = ({
             onClick={() => onViewUpdate(view === 'grid' ? 'list' : 'grid')}
             className="grid place-items-center w-10 h-10  p-2 rounded-md text-xs font-semibold uppercase cursor-pointer hover:brightness-[1.2] focus:brightness-[1.5] focus:outline-none bg-zinc-800 text-zinc-400 transition-all"
           >
-            {view === 'grid' ? (
+            {view === 'list' ? (
               <IoGrid className="text-[20px]" />
             ) : (
               <HiMiniListBullet className="text-[24px]" />

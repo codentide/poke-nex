@@ -25,7 +25,6 @@ export const DetailBento = ({ data, currentVariety }: Props) => {
 
   return (
     <div className="w-full lg:w-fit grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-1.5 ">
-      {/* ... (Weaknesses, Resistances, Immunities remain the same using typesToUse) */}
       {/* WEAKNESSES */}
       {weaknesses.length > 0 && (
         <BentoItem title="Weaknesses" full>
@@ -57,7 +56,7 @@ export const DetailBento = ({ data, currentVariety }: Props) => {
       {/* IMMUNITIES */}
       {immunities.length > 0 && (
         <BentoItem title="Immunities" full>
-          <div className="flex items-center gap-2 w-full xs:w-fit">
+          <div className="flex flex-col xs:flex-row flex-wrap justify-center gap-2 w-full">
             {immunities.map((type) => (
               <TypeBadge
                 key={type}
