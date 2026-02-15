@@ -21,8 +21,8 @@ export const Header = () => {
           <div className="relative h-8 w-8">
             <Image fill src="/logo-white.svg" alt="PokeLogo" />
           </div>
-          <span className="font-rajdhani text-xl font-bold tracking-wider uppercase">
-            Pokénex<span className="text-lime-300">Pro</span>
+          <span className="font-rajdhani text-2xl font-bold tracking-tighter leading-5 text-white">
+            POKÉNEX<span className="text-lime-300">PRO</span>
           </span>
         </Link>
 

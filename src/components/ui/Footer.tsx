@@ -1,3 +1,5 @@
+import { HiHeart } from 'react-icons/hi2'
+import { version } from '../../../package.json'
 import { FaGithub, FaLinkedin } from 'react-icons/fa6'
 
 export const Footer = () => {
@@ -8,16 +10,24 @@ export const Footer = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
         {/* LADO IZQUIERDO: Branding */}
         <div className="flex flex-col items-center md:items-start gap-1">
-          <div className="flex items-baseline gap-2">
-            <span className="font-rajdhani text-2xl font-bold tracking-tighter leading-5 text-white">
-              POKÉNEX<span className="text-lime-300">PRO</span>
-            </span>
-            <span className="text-zinc-500/62 text-[12px] font-inter ">
-              By Marco Del Boccio
-            </span>
+          <div className="flex flex-col items-baseline gap-2">
+            <div className="flex flex-col-reverse items-center gap-2 md:flex-row md:items-baseline md:gap-1">
+              <span className="font-rajdhani text-2xl font-bold tracking-tighter leading-5 text-white">
+                POKÉNEX<span className="text-lime-300">PRO</span>
+              </span>
+              <span className="text-[12px] font-rajdhani font-medium text-lime-400/50 uppercase tracking-widest leading-none">
+                v{version}
+              </span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-zinc-500/62 text-[12px] font-inter leading-tight">
+                By Marco Del Boccio
+              </span>
+            </div>
           </div>
-          <p className="text-zinc-500 text-sm font-inter">
-            © {currentYear} — Built with Next.js & PokéAPI
+          <p className="flex items-center gap-1 text-zinc-500 text-sm font-inter">
+            © {currentYear} — Built with Next.js, PokéAPI &
+            <HiHeart className="text-lime-300 text-[18px]" />
           </p>
         </div>
 

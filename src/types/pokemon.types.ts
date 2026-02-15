@@ -23,6 +23,19 @@ export type PokemonList = {
   url: string
 }[]
 
+export interface PokeVariety {
+  name: string
+  isDefault: boolean
+  pokemonId: number
+  types: PokeType[]
+  stats: PokeStat[]
+  abilities: { name: string; hidden: boolean }[]
+  weight: number
+  height: number
+  genus: string
+  description: string
+}
+
 // Interfaz final del Pokémon en nuestra App
 export interface Pokemon {
   id: number
@@ -34,6 +47,7 @@ export interface Pokemon {
   types: PokeType[]
   stats: PokeStat[]
   abilities: { name: string; hidden: boolean }[]
+  varieties: PokeVariety[]
   assets: {
     official: { default: string; shiny: string }
     home: { default: string; shiny: string }

@@ -1,9 +1,13 @@
 'use client'
 
-import { PokeStat } from '@/types'
 import dynamic from 'next/dynamic'
+import { PokeStat } from '@/types'
+import { StatsChartSkeleton } from '../skeletons/StatsChartSkeleton'
 
-const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
+const Chart = dynamic(() => import('react-apexcharts'), {
+  ssr: false,
+  loading: () => <StatsChartSkeleton />,
+})
 
 interface Props {
   stats: PokeStat[]
@@ -33,8 +37,8 @@ export const hueToHex: Record<string, string> = {
 export const StatsChart = ({ stats, hue }: Props) => {
   const series: ApexNonAxisChartSeries = [
     {
-      name: 'Estadísticas Base', // El nombre de la leyenda
-      data: stats.map((stat) => stat.value), // Los números puros
+      name: 'Base Stats',
+      data: stats.map((stat) => stat.value),
     },
   ]
 
@@ -125,17 +129,12 @@ export const StatsChart = ({ stats, hue }: Props) => {
   }
 
   return (
-    <div className="w-full flex flex-col gap-0 h-68 lg:h-120 mb-8">
-      <h3 className="text-4xl font-rajdhani font-semibold uppercase text-center text-white/60 mb-4">
-        Base Stats
-      </h3>
-      <Chart
-        type="radar"
-        series={series}
-        options={options}
-        width="100%"
-        height="100%"
-      />
-    </div>
+    <Chart
+      type="radar"
+      series={series}
+      options={options}
+      width="100%"
+      height="100%"
+    />
   )
 }

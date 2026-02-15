@@ -19,11 +19,9 @@ export const adaptPokemon = ({
   abilities: apiAbilities,
   stats: apiStats,
   evolution_chain,
+  varieties: apiVarieties,
 }: ApiPokemonResponse): Pokemon => {
-  const mappedTypes: PokeType[] = types.map((type) => ({
-    name: type.type.name as PokeType['name'],
-    url: type.type.url,
-  }))
+  const mappedTypes = mapTypes(types)
 
   const artwork = sprites.other['official-artwork']
   const home = sprites.other.home
@@ -36,11 +34,12 @@ export const adaptPokemon = ({
   const evolution =
     evolution_chain && evolution_chain.url
       ? {
-          id: distillEvolutionChainId(evolution_chain.url),
-          url: evolution_chain.url,
-          chain: [],
-        }
+        id: distillEvolutionChainId(evolution_chain.url),
+        url: evolution_chain.url,
+        chain: [],
+      }
       : null
+  const varieties = mapVarieties(apiVarieties || [], genus, description)
 
   return {
     id,
@@ -53,6 +52,7 @@ export const adaptPokemon = ({
     weight: weight / 10,
     stats,
     evolution,
+    varieties,
     assets: {
       official: {
         default: artwork.front_default || dummyImage,
@@ -84,6 +84,13 @@ const mapAbilities = (abilities: ApiPokemonResponse['abilities']) => {
   }))
 }
 
+const mapTypes = (apiTypes: ApiPokemonResponse['types']): PokeType[] => {
+  return apiTypes.map((type) => ({
+    name: type.type.name as PokeType['name'],
+    url: type.type.url,
+  }))
+}
+
 const mapStats = (apiStats: ApiPokemonResponse['stats']): PokeStat[] => {
   return apiStats.map(({ stat, base_stat }) => ({
     name: POKEMON_STATS[stat.name],
@@ -108,4 +115,27 @@ const distillEvolutionChainId = (url: string) => {
   const matches = url.match(/\/(\d+)\/?$/)
   const id = matches ? matches[1] : null
   return Number(id)
+}
+
+const mapVarieties = (
+  apiVarieties: NonNullable<ApiPokemonResponse['varieties']>,
+  genus: string,
+  description: string
+) => {
+  return apiVarieties.map((variety) => {
+    const { is_default, pokemon, types, stats, abilities, weight = 0, height = 0 } = variety
+    const pokemonId = distillEvolutionChainId(pokemon.url)
+    return {
+      name: pokemon.name.replace(/-/g, ' '),
+      isDefault: is_default,
+      pokemonId,
+      types: mapTypes(types || []),
+      stats: mapStats(stats || []),
+      abilities: mapAbilities(abilities || []),
+      weight: weight / 10,
+      height: height / 10,
+      genus,
+      description,
+    }
+  })
 }

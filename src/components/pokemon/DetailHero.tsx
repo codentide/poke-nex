@@ -1,13 +1,27 @@
-import { Pokemon } from '@/types'
+import { TypeTheme } from '@/constants'
+import { Pokemon, PokeType, PokeVariety } from '@/types'
 import { ArrowButton } from '../ui'
 import { DetailCover } from './DetailCover'
-import { TypeBadge } from './TypeBadge'
 
 interface Props {
   data: Pokemon
+  selectedVariety: PokeVariety
+  isShiny: boolean
+  onSelectVariety: (variety: PokeVariety) => void
+  onToggleShiny: (shiny: boolean) => void
+  theme: TypeTheme
+  currentTypes: PokeType[]
 }
 
-export const DetailHero = ({ data }: Props) => {
+export const DetailHero = ({
+  data,
+  selectedVariety,
+  isShiny,
+  onSelectVariety,
+  onToggleShiny,
+  theme,
+  currentTypes,
+}: Props) => {
   return (
     <div className="flex flex-col items-center gap-4 w-full">
       <small className="block font-rajdhani text-2xl text-center text-white/32">
@@ -22,7 +36,15 @@ export const DetailHero = ({ data }: Props) => {
             href={`/pokemon/${data.id - 1}`}
           />
         )}
-        <DetailCover data={data} />
+        <DetailCover
+          data={data}
+          selectedVariety={selectedVariety}
+          isShiny={isShiny}
+          onSelectVariety={onSelectVariety}
+          onToggleShiny={onToggleShiny}
+          theme={theme}
+          currentTypes={currentTypes}
+        />
         {data.id < 1025 && (
           <ArrowButton
             className="absolute xs:static -right-3"
@@ -32,16 +54,9 @@ export const DetailHero = ({ data }: Props) => {
           />
         )}
       </div>
-      <h1 className="w-full mt-8 text-4xl sm:text-6xl lg:text-8xl font-rajdhani font-semibold uppercase text-center">
-        {data.name}
-      </h1>
-      <div className="flex gap-2 w-fit">
-        {data.types.map((type) => (
-          <TypeBadge key={type.name} type={type.name} />
-        ))}
-      </div>
+      <h1 className="sr-only">{data.name}</h1>
       <p className="w-full lg:w-[80%] font-inter text-center leading-relaxed text-white/50">
-        {data.description}
+        {selectedVariety.description}
       </p>
     </div>
   )
