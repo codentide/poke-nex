@@ -32,14 +32,9 @@ export const DetailHero = ({ data }: Props) => {
           />
         )}
       </div>
-      <h1 className="w-full mt-8 text-4xl sm:text-6xl lg:text-8xl font-rajdhani font-semibold uppercase text-center">
+      <h1 className="sr-only">
         {data.name}
       </h1>
-      <div className="flex gap-2 w-fit">
-        {data.types.map((type) => (
-          <TypeBadge key={type.name} type={type.name} />
-        ))}
-      </div>
       <p className="w-full lg:w-[80%] font-inter text-center leading-relaxed text-white/50">
         {data.description}
       </p>

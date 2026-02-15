@@ -12,11 +12,7 @@ export default function FavoritesPage() {
   const [hydrated, setHydrated] = useState(false)
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setHydrated(true)
-    }, 0)
-
-    return () => clearTimeout(timeoutId)
+    setHydrated(true)
   }, [])
 
   return (

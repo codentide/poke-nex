@@ -44,6 +44,17 @@ export type ApiSpeciesResponse = {
   genera: { genus: string; language: ApiLanguage }[]
   flavor_text_entries: { flavor_text: string; language: ApiLanguage }[]
   evolution_chain: { url: string }
+  varieties: ApiVariety[]
+}
+
+// Variación de forma de pokémon
+export interface ApiVariety {
+  is_default: boolean
+  pokemon: {
+    name: string
+    url: string
+  }
+  types?: ApiPokemonType[]
 }
 
 // El Objeto Principal que llega de la API
@@ -61,4 +72,5 @@ export type ApiPokemonResponse = {
   genera?: ApiSpeciesResponse['genera']
   flavor_text_entries?: ApiSpeciesResponse['flavor_text_entries']
   evolution_chain?: ApiSpeciesResponse['evolution_chain']
+  varieties?: ApiVariety[]
 }

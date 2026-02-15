@@ -49,15 +49,10 @@ export const FilterBar = ({
         />
         <div className="flex h-10 gap-2.5">
           <CustomSelect
-            classname="w-full lg:w-50 h-full"
-            selected={sort}
+            className="w-full lg:w-50 h-full"
+            value={sort}
             options={SORT_OPTIONS}
             onSelect={(value) => onSort(value as PokeSort)}
-            renderItem={(type) => (
-              <div className="flex items-center gap-2">
-                <span className="capitalize">{type}</span>
-              </div>
-            )}
           />
           <button
             title="Change View"

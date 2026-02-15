@@ -36,11 +36,33 @@ export const fetchPokemonByID = async (
     )
   }
   const speciesData: ApiSpeciesResponse = await speciesResponse.json()
+
+  // Fetch full data for each variety in parallel to get their specific types
+  const varietyData = await Promise.all(
+    speciesData.varieties.map(async (variety) => {
+      if (variety.pokemon.name === baseData.name) {
+        return { ...variety, types: baseData.types }
+      }
+
+      try {
+        const res = await fetch(variety.pokemon.url, { next: { revalidate: 86400 } })
+        if (res.ok) {
+          const data: ApiPokemonResponse = await res.json()
+          return { ...variety, types: data.types }
+        }
+      } catch (e) {
+        console.error(`[API.ERROR] Could not fetch variety ${variety.pokemon.name}`, e)
+      }
+      return variety
+    })
+  )
+
   return {
     ...baseData,
     genera: speciesData.genera,
     flavor_text_entries: speciesData.flavor_text_entries,
     evolution_chain: speciesData.evolution_chain,
+    varieties: varietyData,
   }
 }
 

@@ -10,6 +10,7 @@ The core of this project is the implementation of **Clean Architecture** (Fetche
 - **Dynamic Favorite System:** Integrated **Zustand + LocalStorage** persistence layer that enables users to curate their own collection. The UI reacts instantly to state changes, providing real-time feedback across the entire application.
 - **Seamless Pagination:** Intelligent data windowing that handles large datasets efficiently, ensuring the UI remains snappy while navigating through the global registry or personal archives.
 - **Detailed Pokémon Archives:** Comprehensive detail pages for every specimen, showcasing stats, types, and high-fidelity assets, all served via **Next.js Dynamic Routing** for optimal performance.
+- **Pokémon Variations & Forms:** Support for switching between different Pokémon forms (Mega Evolutions, Regional Forms, Gigantamax) with dynamic type and theme updates.
 - **Hybrid View Modes:** Flexible UI that allows users to toggle between **Grid** and **List** views, adapting the data presentation to their specific needs.
 
 ## 🛠️ Tech Stack
