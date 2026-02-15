@@ -8,6 +8,7 @@ type ArrowLinkProps = {
 
 type ArrowButtonProps = {
   type: 'button'
+  disabled: boolean
   onClick: () => void
 }
 
@@ -32,7 +33,11 @@ export const ArrowButton = (props: Props) => {
   }
 
   return (
-    <button onClick={props.onClick} className={commonStyles + className}>
+    <button
+      onClick={props.onClick}
+      className={commonStyles + className}
+      disabled={props.disabled}
+    >
       <Chevron className="text-5xl" />
     </button>
   )
