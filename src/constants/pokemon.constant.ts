@@ -1,4 +1,4 @@
-import { PokeStat, PokeType } from '@/types'
+import { PokeRegion, PokeStat, PokeType } from '@/types'
 
 export const POKEMON_STATS: Record<string, PokeStat['name']> = {
   attack: 'ATK',
@@ -9,13 +9,7 @@ export const POKEMON_STATS: Record<string, PokeStat['name']> = {
   speed: 'SPE',
 }
 
-export const SORTS = {
-  NAME_ASC: 'name-asc',
-  NAME_DESC: 'name-desc',
-  ID_ASC: 'id-asc',
-  ID_DESC: 'id-desc',
-} as const
-
+// Tipos
 export const POKEMON_TYPES = {
   NORMAL: 'normal',
   FIGHTING: 'fighting',
@@ -35,129 +29,32 @@ export const POKEMON_TYPES = {
   DRAGON: 'dragon',
   DARK: 'dark',
   FAIRY: 'fairy',
-  // STELLAR: 'stellar',
-  // UNKNOWN: 'unknown',
 } as const
 
-export const ALL_POKEMON_TYPES: PokeType['name'][] = [
-  'fire',
-  'water',
-  'grass',
-  'electric',
-  'ice',
-  'fighting',
-  'poison',
-  'ground',
-  'flying',
-  'psychic',
-  'bug',
-  'rock',
-  'ghost',
-  'dragon',
-  'steel',
-  'fairy',
-  'normal',
-  // 'dark',
+export const ALL_POKEMON_TYPES = Object.values(POKEMON_TYPES)
+
+// Utilities para filtros
+
+export const REGIONS: PokeRegion[] = [
+  { name: 'kanto', start: 1, end: 151 },
+  { name: 'johto', start: 152, end: 251 },
+  { name: 'hoenn', start: 252, end: 386 },
+  { name: 'sinnoh', start: 387, end: 493 },
+  { name: 'unova', start: 494, end: 649 },
+  { name: 'kalos', start: 650, end: 721 },
+  { name: 'alola', start: 722, end: 809 },
+  { name: 'galar', start: 810, end: 905 },
+  { name: 'paldea', start: 906, end: 1025 },
 ]
 
+export const SORTS = {
+  NAME_ASC: 'name-asc',
+  NAME_DESC: 'name-desc',
+  ID_ASC: 'id-asc',
+  ID_DESC: 'id-desc',
+} as const
+
 // Fortalezas y debilidades
-
-export const TYPE_CHART: Record<
-  string,
-  {
-    strengths: PokeType['name'][]
-    weaknesses: PokeType['name'][]
-    immunes: PokeType['name'][]
-  }
-> = {
-  normal: { strengths: [], weaknesses: ['fighting'], immunes: ['ghost'] },
-  fire: {
-    strengths: ['grass', 'ice', 'bug', 'steel'],
-    weaknesses: ['water', 'ground', 'rock'],
-    immunes: [],
-  },
-  water: {
-    strengths: ['fire', 'ground', 'rock'],
-    weaknesses: ['electric', 'grass'],
-    immunes: [],
-  },
-  grass: {
-    strengths: ['water', 'ground', 'rock'],
-    weaknesses: ['fire', 'ice', 'poison', 'flying', 'bug'],
-    immunes: [],
-  },
-  electric: {
-    strengths: ['water', 'flying'],
-    weaknesses: ['ground'],
-    immunes: [],
-  },
-  ice: {
-    strengths: ['grass', 'ground', 'flying', 'dragon'],
-    weaknesses: ['fire', 'fighting', 'rock', 'steel'],
-    immunes: [],
-  },
-  fighting: {
-    strengths: ['normal', 'ice', 'rock', 'dark', 'steel'],
-    weaknesses: ['flying', 'psychic', 'fairy'],
-    immunes: [],
-  },
-  poison: {
-    strengths: ['grass', 'fairy'],
-    weaknesses: ['ground', 'psychic'],
-    immunes: [],
-  },
-  ground: {
-    strengths: ['fire', 'electric', 'poison', 'rock', 'steel'],
-    weaknesses: ['water', 'grass', 'ice'],
-    immunes: ['electric'],
-  },
-  flying: {
-    strengths: ['grass', 'fighting', 'bug'],
-    weaknesses: ['electric', 'ice', 'rock'],
-    immunes: ['ground'],
-  },
-  psychic: {
-    strengths: ['fighting', 'poison'],
-    weaknesses: ['bug', 'ghost', 'dark'],
-    immunes: [],
-  },
-  bug: {
-    strengths: ['grass', 'psychic', 'dark'],
-    weaknesses: ['fire', 'flying', 'rock'],
-    immunes: [],
-  },
-  rock: {
-    strengths: ['fire', 'ice', 'flying', 'bug'],
-    weaknesses: ['water', 'grass', 'fighting', 'ground', 'steel'],
-    immunes: [],
-  },
-  ghost: {
-    strengths: ['psychic', 'ghost'],
-    weaknesses: ['ghost', 'dark'],
-    immunes: ['normal', 'fighting'],
-  },
-  dragon: {
-    strengths: ['dragon'],
-    weaknesses: ['ice', 'dragon', 'fairy'],
-    immunes: [],
-  },
-  dark: {
-    strengths: ['psychic', 'ghost'],
-    weaknesses: ['fighting', 'bug', 'fairy'],
-    immunes: ['psychic'],
-  },
-  steel: {
-    strengths: ['ice', 'rock', 'fairy'],
-    weaknesses: ['fire', 'fighting', 'ground'],
-    immunes: ['poison'],
-  },
-  fairy: {
-    strengths: ['fighting', 'dragon', 'dark'],
-    weaknesses: ['poison', 'steel'],
-    immunes: ['dragon'],
-  },
-}
-
 export const TYPE_DEFENSE_CHART: Record<string, Record<string, number>> = {
   normal: { fighting: 2, ghost: 0 },
   fire: {

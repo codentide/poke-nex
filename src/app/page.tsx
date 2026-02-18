@@ -1,5 +1,5 @@
 import { PokeGallery } from '@/components/pokemon'
-import { getPokemonDetailList } from '@/services/pokemon.service'
+import { getPokemonListGQL } from '@/services/pokemon.service'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -8,7 +8,8 @@ export const metadata: Metadata = {
   keywords: ['Pokémon', 'PokeAPI', 'Pokémon Gallery'],
   openGraph: {
     title: 'Pokenéx PRO',
-    description: 'Discover details and stats of your favorite Pokémon in a polished, modern interface.',
+    description:
+      'Discover details and stats of your favorite Pokémon in a polished, modern interface.',
     url: 'https://poke-nex.vercel.app',
     siteName: 'Pokenéx PRO',
     type: 'website',
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Home() {
-  const { data: pokeList, error } = await getPokemonDetailList()
+  const { data: pokemonList, error } = await getPokemonListGQL()
   if (error) throw new Error(JSON.stringify(error))
 
   return (
@@ -29,7 +30,7 @@ export default async function Home() {
           Discover information and statistics about your favorite Pokémon.
         </p>
       </div>
-      <PokeGallery content={pokeList} />
+      <PokeGallery content={pokemonList} />
     </main>
   )
 }

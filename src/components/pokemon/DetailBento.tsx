@@ -1,19 +1,20 @@
 'use client'
 
 import { getEffectivities } from '@/lib/utils'
-import { Pokemon, PokeVariety } from '@/types'
+import { PokemonDetail, PokeVariety } from '@/types'
 import { TypeBadge } from './TypeBadge'
 import { BentoItem } from './BentoItem'
 
 interface Props {
-  data: Pokemon
+  data: PokemonDetail
   currentVariety?: PokeVariety
 }
 
 export const DetailBento = ({ data, currentVariety }: Props) => {
-  const typesToUse = currentVariety && currentVariety.types.length > 0 
-    ? currentVariety.types 
-    : data.types
+  const typesToUse =
+    currentVariety && currentVariety.types.length > 0
+      ? currentVariety.types
+      : data.types
 
   const { weaknesses, multipliers, resistances, immunities } = getEffectivities(
     typesToUse.map((type) => type.name)
@@ -69,7 +70,10 @@ export const DetailBento = ({ data, currentVariety }: Props) => {
       )}
       <BentoItem title="Weight" description={`${weight.toFixed(1)} KG`} />
       <BentoItem title="Height" description={`${height.toFixed(1)} M`} />
-      <BentoItem title="Category" description={currentVariety ? currentVariety.genus : data.genus} />
+      <BentoItem
+        title="Category"
+        description={currentVariety ? currentVariety.genus : data.genus}
+      />
       <BentoItem title={abilities.length > 1 ? 'Abilities' : 'Ability'}>
         {abilities.map((ability) => (
           <span

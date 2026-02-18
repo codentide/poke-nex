@@ -1,47 +1,8 @@
-import { Pokemon, PokeSort, PokeType } from '@/types'
-import { useMemo, useReducer } from 'react'
+import { REGIONS } from '@/constants'
+import { PokemonSummary, PokeType } from '@/types'
+import { useMemo } from 'react'
 import { useDebounce } from './useDebounce'
-
-type FilterState = {
-  search: string
-  types: PokeType['name'][]
-  sort: PokeSort
-}
-
-type FilterAction =
-  | { type: 'SET_SEARCH'; payload: FilterState['search'] }
-  | { type: 'SET_SORT'; payload: FilterState['sort'] }
-  | { type: 'TOGGLE_TYPE'; payload: FilterState['types'][number] }
-  | { type: 'CLEAR_TYPES' }
-
-// Reducer para manejar los estados
-const filterReducer = (state: FilterState, action: FilterAction) => {
-  if (action.type === 'SET_SEARCH')
-    return { ...state, search: action.payload.toLowerCase() }
-  if (action.type === 'SET_SORT') return { ...state, sort: action.payload }
-  if (action.type === 'TOGGLE_TYPE') {
-    const newType = action.payload
-    const isAlreadySelected = state.types.includes(newType)
-
-    if (isAlreadySelected) {
-      const filteredTypes = state.types.filter((type) => type !== newType)
-      return { ...state, types: filteredTypes }
-    }
-    // const updatedTypes =
-    //   state.types.length >= 2 ? [state.types[1], newType] : [...state.types, newType]
-
-    return { ...state, types: [...state.types, newType] }
-  }
-  if (action.type === 'CLEAR_TYPES') return { ...state, types: [] }
-  else return state
-}
-
-// Estado inicial
-const defaultState: FilterState = {
-  search: '',
-  types: [],
-  sort: 'id-asc',
-}
+import { useTweaksStore } from '@/stores/tweaks.store'
 
 type filterConfig = {
   debounce?: number
@@ -52,35 +13,45 @@ const defaultConfig: filterConfig = {
 }
 
 export const usePokeFilters = (
-  pokeList: Pokemon[],
+  pokeList: PokemonSummary[],
   config: filterConfig = defaultConfig
 ) => {
-  const [state, dispatch] = useReducer(filterReducer, defaultState)
-  const { search, types, sort } = state
-  const debSearch = useDebounce(search, config.debounce || 0)
+  const { query, region, types, sort, setQuery, setRegion, setSort, setTypes } =
+    useTweaksStore()
+  const debSearch = useDebounce(query, config.debounce || 0)
 
-  // Proceso de filtrado y ordenamiento por niveles
   const list = useMemo(() => {
-    const search = debSearch
+    const query = debSearch.trim().toLowerCase()
+    const currentRegion =
+      region !== 'all' ? REGIONS.find((r) => r.name === region) : null
+
     let result = [...pokeList]
 
-    if (search.trim() !== '') {
-      const query = search
+    // 1. Filtro de búsqueda
+    if (query !== '') {
       result = result.filter(
         ({ name, id }) =>
           name.toLowerCase().includes(query) || id.toString().includes(query)
       )
     }
 
-    if (types.length > 0) {
-      result = result.filter((pokemon) => {
-        const pokeTypeNames = pokemon.types.map((type) => type.name)
-        return types.some((stateType) => pokeTypeNames.includes(stateType))
-      })
+    // 2. Filtro de región
+    if (currentRegion) {
+      const { start, end } = currentRegion
+      result = result.filter((p) => p.id >= start && p.id <= end)
     }
 
+    // 3. Filtro de tipos
+    if (Array.isArray(types) && types.length > 0) {
+      // <--- Validamos que sea un Array
+      result = result.filter((pokemon) =>
+        types.some((t) => pokemon.types && pokemon.types.includes(t))
+      )
+    }
+
+    // 4. Ordenamiento real (Sin el return 0)
     result.sort((a, b) => {
-      if (sort === 'id-asc') return a.id - b.id
+      if (sort === 'id-asc') return a.id - b.id // <--- Importante
       if (sort === 'id-desc') return b.id - a.id
       if (sort === 'name-asc') return a.name.localeCompare(b.name)
       if (sort === 'name-desc') return b.name.localeCompare(a.name)
@@ -88,15 +59,24 @@ export const usePokeFilters = (
     })
 
     return result
-  }, [pokeList, debSearch, types, sort])
+  }, [pokeList, debSearch, types, sort, region])
+
+  // Lógica de toggle recuperada del reducer
+  const toggleType = (typeName: PokeType['name']) => {
+    const isAlreadySelected = types.includes(typeName)
+    const newTypes = isAlreadySelected
+      ? types.filter((t) => t !== typeName)
+      : [...types, typeName]
+    setTypes(newTypes)
+  }
 
   return {
     list,
-    state,
-    setSearch: (payload: string) => dispatch({ type: 'SET_SEARCH', payload }),
-    setSort: (payload: PokeSort) => dispatch({ type: 'SET_SORT', payload }),
-    toggleType: (payload: PokeType['name']) =>
-      dispatch({ type: 'TOGGLE_TYPE', payload }),
-    clearTypes: () => dispatch({ type: 'CLEAR_TYPES' }),
+    state: { search: query, region, types, sort },
+    setSearch: setQuery,
+    setRegion,
+    setSort,
+    toggleType, // <--- Ahora sí es un toggle real
+    clearTypes: () => setTypes([]),
   }
 }

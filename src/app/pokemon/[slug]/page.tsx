@@ -7,6 +7,7 @@ import { FavoriteButton } from '@/components/pokemon/FavoriteButton'
 import { EvolutionChainSkeleton } from '@/components/skeletons'
 import { POKE_THEMES } from '@/constants'
 import { getMostColorfulType } from '@/lib/utils'
+import { detailToSummary } from '@/lib/utils/detailToSummary'
 import { getPokemonDetail, getPokemonList } from '@/services/pokemon.service'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
@@ -42,7 +43,7 @@ export default async function PokemonDetailPage({ params }: Props) {
   if (error && error.code != 404) throw new Error(JSON.stringify(error))
   if (!pokemonData) notFound()
 
-  const type = getMostColorfulType(pokemonData.types)
+  const type = getMostColorfulType(pokemonData.types.map((t) => t.name))
   const theme = POKE_THEMES[type]
 
   return (
@@ -54,7 +55,7 @@ export default async function PokemonDetailPage({ params }: Props) {
         </Suspense>
       )}
       <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-fit">
-        <FavoriteButton pokemon={pokemonData} />
+        <FavoriteButton pokemon={detailToSummary(pokemonData)} />
         <ShareButton />
       </div>
     </main>

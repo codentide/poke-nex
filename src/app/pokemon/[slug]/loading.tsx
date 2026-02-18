@@ -6,7 +6,7 @@ export default function Loading() {
       <div className="flex flex-col items-center gap-4 w-full animate-pulse">
         {/* N° ID */}
         <small className="h-8 w-24 bg-white/5 rounded" />
-        {/* Pokemon Image Area con botones de navegación */}
+        {/* PokemonDetail Image Area con botones de navegación */}
         <div className="relative flex items-center justify-center gap-4 md:gap-12 w-full">
           {/* Botón izquierdo */}
           <div className="absolute xs:static -left-3 w-12 h-12 bg-white/5 rounded-full" />

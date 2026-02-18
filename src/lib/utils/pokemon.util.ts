@@ -18,18 +18,18 @@ export const getPokemonOfTheDay = (totalPokemons: number = 1025) => {
   return pokemonId
 }
 
-export const getMostColorfulType = (types: PokeType[]): PokeType['name'] => {
+export const getMostColorfulType = (
+  types: PokeType['name'][]
+): PokeType['name'] => {
   if (!types) return 'normal'
 
   if (types.length > 1) {
     const isGrayType =
-      types[0].name === 'normal' ||
-      types[0].name === 'rock' ||
-      types[0].name === 'steel'
+      types[0] === 'normal' || types[0] === 'rock' || types[0] === 'steel'
 
-    if (isGrayType) return types[1].name
+    if (isGrayType) return types[1]
   }
-  return types[0].name
+  return types[0]
 }
 
 export const flatEvolutionChain = (

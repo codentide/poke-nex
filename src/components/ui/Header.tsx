@@ -1,4 +1,5 @@
 'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -23,6 +24,7 @@ export const Header = () => {
         <Link
           href="/"
           className="flex items-center gap-2 transition-transform hover:scale-105"
+          onClick={() => setIsMenuOpen(false)}
         >
           <div className="relative h-8 w-8">
             <Image fill src="/logo-white.svg" alt="PokeLogo" />
@@ -54,10 +56,14 @@ export const Header = () => {
           aria-label="Toggle menu"
         >
           <div className="relative w-8 h-8 flex items-center justify-center">
-            <div className={`absolute transition-all duration-300 ${isMenuOpen ? 'opacity-0 rotate-180 scale-50' : 'opacity-100 rotate-0 scale-100'}`}>
+            <div
+              className={`absolute transition-all duration-300 ${isMenuOpen ? 'opacity-0 rotate-180 scale-50' : 'opacity-100 rotate-0 scale-100'}`}
+            >
               <IoMenu />
             </div>
-            <div className={`absolute transition-all duration-300 ${isMenuOpen ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-180 scale-50'}`}>
+            <div
+              className={`absolute transition-all duration-300 ${isMenuOpen ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-180 scale-50'}`}
+            >
               <IoClose />
             </div>
           </div>
@@ -65,7 +71,7 @@ export const Header = () => {
       </div>
 
       {/* Mobile Menu Dropdown with Animation */}
-      <div 
+      <div
         className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-64' : 'max-h-0 border-b-0'}`}
       >
         <nav className="py-6 px-[4%] flex flex-col gap-5 items-center border-t border-white/12.5 ">

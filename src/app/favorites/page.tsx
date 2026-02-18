@@ -1,19 +1,15 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { PokeGallery } from '@/components/pokemon'
 import { PokeGallerySkeleton } from '@/components/skeletons'
 import { useFavoriteState } from '@/stores/favorite.store'
-import { Pokemon } from '@/types'
+import { PokemonSummary } from '@/types'
 import Link from 'next/link'
+import { useHydrated } from '@/hooks/useHydrated'
 
 export default function FavoritesPage() {
-  const favoriteList = useFavoriteState() as Pokemon[]
-  const [hydrated, setHydrated] = useState(false)
-
-  useEffect(() => {
-    setHydrated(true)
-  }, [])
+  const favoriteList = useFavoriteState() as PokemonSummary[]
+  const hydrated = useHydrated()
 
   return (
     <main className="flex flex-col gap-8 min-h-screen py-12 px-[4%] md:px-[12%] lg:px-[20%] ">

@@ -1,10 +1,10 @@
 import { TypeTheme } from '@/constants'
-import { Pokemon, PokeType, PokeVariety } from '@/types'
+import { PokemonDetail, PokeType, PokeVariety } from '@/types'
 import { ArrowButton } from '../ui'
 import { DetailCover } from './DetailCover'
 
 interface Props {
-  data: Pokemon
+  data: PokemonDetail
   selectedVariety: PokeVariety
   isShiny: boolean
   onSelectVariety: (variety: PokeVariety) => void

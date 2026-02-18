@@ -8,10 +8,10 @@ export const PokemonCardSkeleton = () => {
 
       {/* Content area */}
       <div className="text-left w-full">
-        {/* Pokemon name */}
+        {/* PokemonDetail name */}
         <div className="h-7 w-32 bg-white/10 rounded mb-1" />
 
-        {/* Pokemon ID */}
+        {/* PokemonDetail ID */}
         <div className="h-4 w-12 bg-white/5 rounded mb-2" />
 
         <div className="flex items-end justify-between">

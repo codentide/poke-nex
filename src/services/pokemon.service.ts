@@ -1,23 +1,26 @@
-import { adaptPokemon } from '@/adapters/pokemon.adapter'
+import { adaptPokemon } from '@/adapters/pokemon-detail.adapter'
+import { adaptPokemonSummary } from '@/adapters/pokemon-summary.adapter'
 import {
   fetchEvolutionChain,
   fetchPokemonByID,
   fetchPokemonList,
+  fetchPokemonListGQL,
 } from '@/lib/api/pokemon.api'
 import { handleServiceError } from '@/lib/utils/error.util'
 import { flatEvolutionChain } from '@/lib/utils/pokemon.util'
 import {
   ApiError,
   Evolution,
-  Pokemon,
+  PokemonDetail,
   PokemonList,
+  PokemonSummary,
   ServiceResponse,
 } from '@/types'
 
 export const getPokemonDetail = async (
   slug: string,
   extended: boolean = true
-): Promise<ServiceResponse<Pokemon>> => {
+): Promise<ServiceResponse<PokemonDetail>> => {
   try {
     if (!slug) throw new Error('The Pokémon slug or ID is required.')
     const pokemonData = await fetchPokemonByID(slug, extended)
@@ -50,8 +53,27 @@ export const getPokemonList = async (): Promise<
   }
 }
 
+export const getPokemonListGQL = async (): Promise<
+  ServiceResponse<PokemonSummary[]>
+> => {
+  try {
+    const pokemonList = await fetchPokemonListGQL()
+    if (!pokemonList || pokemonList.data.pokemon.length === 0) {
+      throw new ApiError('Pokémon list is null')
+    }
+    const data = pokemonList.data.pokemon.map((p) => adaptPokemonSummary(p))
+    return { data, error: null }
+  } catch (error) {
+    const fault = handleServiceError(error, '[getPokemonList]')
+    return {
+      data: null,
+      error: fault,
+    }
+  }
+}
+
 export const getPokemonDetailList = async (): Promise<
-  ServiceResponse<Pokemon[]>
+  ServiceResponse<PokemonDetail[]>
 > => {
   try {
     const keyList = await getPokemonList()
