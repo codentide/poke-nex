@@ -165,7 +165,7 @@ export const POKE_THEMES: Record<string, TypeTheme> = {
   dark: {
     hue: 'slate',
     gradient: 'from-slate-700/60',
-    bg: 'bg-slate-900/40',
+    bg: 'bg-slate-800/50 saturate-150',
     text: 'text-slate-300',
     border: 'border-slate-600/50',
     hover: 'hover:bg-slate-700/40',

@@ -1,7 +1,7 @@
 'use client'
 
 import { TypeTheme } from '@/constants'
-import { Pokemon, PokeType, PokeVariety } from '@/types'
+import { PokemonDetail, PokeType, PokeVariety } from '@/types'
 import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 import { SpriteImage } from '../ui'
@@ -9,7 +9,7 @@ import { TypeBadge } from './TypeBadge'
 import { VarietyControls } from './VarietyControls'
 
 interface Props {
-  data: Pokemon
+  data: PokemonDetail
   selectedVariety: PokeVariety
   isShiny: boolean
   onSelectVariety: (variety: PokeVariety) => void
@@ -52,7 +52,7 @@ export const DetailCover = ({
       />
 
       <div className="mt-10 mb-8">
-        {/* Pokemon Image */}
+        {/* PokemonDetail Image */}
         <div
           className={`relative aspect-square w-68 xs:w-72 md:w-100 drop-shadow-2xl ${theme.glow} drop-shadow-[0_0_120px] mb-8`}
         >

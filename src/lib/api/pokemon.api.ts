@@ -4,9 +4,11 @@ import {
   ApiPokemonListResponse,
   ApiPokemonResponse,
   ApiSpeciesResponse,
+  GQLPokemonSummaryList,
 } from '@/types/api.types'
 
 const BASE_URL = process.env.POKEAPI_BASE_URL
+const GQL_URL = process.env.POKEAPI_GQL_URL!
 const LIMIT = process.env.POKEMON_LIST_LIMIT
 
 // Petición de información detallada del pokemon, con extended=true se trae información adicional
@@ -15,7 +17,7 @@ export const fetchPokemonByID = async (
   extended = false
 ): Promise<ApiPokemonResponse> => {
   const baseResponse = await fetch(`${BASE_URL}/pokemon/${slug}`, {
-    next: { revalidate: 86400 },
+    next: { revalidate: 604800 },
   })
   if (!baseResponse.ok) {
     throw new ApiError(
@@ -53,7 +55,7 @@ export const fetchPokemonByID = async (
 
       try {
         const res = await fetch(variety.pokemon.url, {
-          next: { revalidate: 86400 },
+          next: { revalidate: 604800 },
         })
         if (res.ok) {
           const data: ApiPokemonResponse = await res.json()
@@ -67,7 +69,10 @@ export const fetchPokemonByID = async (
           }
         }
       } catch (e) {
-        console.error(`[API.ERROR] Could not fetch variety ${variety.pokemon.name}`, e)
+        console.error(
+          `[API.ERROR] Could not fetch variety ${variety.pokemon.name}`,
+          e
+        )
       }
       return variety
     })
@@ -94,6 +99,43 @@ export const fetchPokemonList = async (
       '[fetchPokemonList]'
     )
   }
+  return await response.json()
+}
+
+export const fetchPokemonListGQL = async (
+  limit: number = Number(LIMIT)
+): Promise<GQLPokemonSummaryList> => {
+  const query = `
+    query getPokemonList($limit: Int, $offset: Int) {
+      pokemon(limit: $limit, offset: $offset) {
+        id
+        name
+        pokemontypes {
+          type {
+            name
+          }
+        }
+      }
+    }
+  `
+  const response = await fetch(GQL_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      query,
+      variables: { limit, offset: 0 },
+    }),
+    next: { revalidate: 604800 },
+  })
+
+  if (!response.ok) {
+    throw new ApiError(
+      `[API.ERROR] The Pokémon list could not be obtained.`,
+      response.status,
+      '[fetchPokemonList]'
+    )
+  }
+
   return await response.json()
 }
 

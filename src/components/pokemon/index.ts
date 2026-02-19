@@ -1,4 +1,5 @@
 export * from './PokemonCard'
+export * from './PokemonTable'
 export * from './PokeGallery'
 export * from './EvolutionChain'
 export * from './DetailStats'

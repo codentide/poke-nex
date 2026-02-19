@@ -1,16 +1,14 @@
-import { Pokemon } from '@/types'
+import { PokemonSummary } from '@/types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-export type FavoriteItem = Pick<Pokemon, 'id' | 'types' | 'assets' | 'name'>
-
 type State = {
-  favorites: FavoriteItem[]
+  favorites: PokemonSummary[]
 }
 
 type Actions = {
-  toggleFavorite: (pokemon: FavoriteItem) => void
-  isFavorite: (id: FavoriteItem['id']) => boolean
+  toggleFavorite: (pokemon: PokemonSummary) => void
+  isFavorite: (id: PokemonSummary['id']) => boolean
 }
 
 interface Store extends State, Actions {}
@@ -22,11 +20,11 @@ export const useFavoriteStore = create<Store>()(
       isFavorite: (id) => get().favorites.some((p) => p.id === id),
       toggleFavorite: (pokemon) => {
         const { favorites, isFavorite } = get()
-        const newPokemon: FavoriteItem = {
+        const newPokemon: PokemonSummary = {
           id: pokemon.id,
           name: pokemon.name,
           types: pokemon.types,
-          assets: pokemon.assets,
+          image: pokemon.image,
         }
         set({
           favorites: isFavorite(newPokemon.id)
@@ -45,7 +43,7 @@ export const useFavoriteState = () => {
   return useFavoriteStore((state) => state.favorites)
 }
 
-export const useIsFavorite = (id: FavoriteItem['id']) => {
+export const useIsFavorite = (id: PokemonSummary['id']) => {
   return useFavoriteStore((state) => state.favorites.some((p) => p.id === id))
 }
 

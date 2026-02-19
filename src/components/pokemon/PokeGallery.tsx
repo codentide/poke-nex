@@ -1,31 +1,28 @@
 'use client'
 
-import { useState } from 'react'
 import { usePaginate, usePokeFilters } from '@/hooks'
-import { Pokemon } from '@/types'
-import {
-  FilterBar,
-  ListContainer,
-  GridContainer,
-  PaginationControl,
-} from '../ui'
-import { PokemonCard } from './PokemonCard'
+import { PokemonSummary } from '@/types'
+import { FilterBar, GridContainer, PaginationControl } from '../ui'
+import { PokemonCard, PokemonTable } from './'
+import { useHydrated } from '@/hooks/useHydrated'
+import { PokeGallerySkeleton } from '../skeletons'
+import { useTweaksStore } from '@/stores/tweaks.store'
 
 interface Props {
-  content: Pokemon[]
+  content: PokemonSummary[]
   emptyMessage?: string
 }
 
-export type View = 'grid' | 'list'
-
 export const PokeGallery = ({ content }: Props) => {
-  const [view, setView] = useState<View>('grid')
-  const Container = view === 'grid' ? GridContainer : ListContainer
+  const isHydrated = useHydrated()
+  const view = useTweaksStore((s) => s.view)
+  const setView = useTweaksStore((s) => s.setView)
 
   const {
     list: filteredList,
     state: filterState,
     setSearch,
+    setRegion,
     setSort,
     toggleType,
     clearTypes,
@@ -38,16 +35,20 @@ export const PokeGallery = ({ content }: Props) => {
     next,
     prev,
     setCurrent,
-  } = usePaginate(filteredList, 12)
+  } = usePaginate(filteredList, 24)
+
+  if (!isHydrated) return <PokeGallerySkeleton />
 
   return (
-    <section className="flex flex-col gap-16 max-w-7xl min-h-[68vh]">
+    <section className="flex flex-col gap-8 max-w-7xl min-h-[68vh]">
       <FilterBar
         search={filterState.search}
+        region={filterState.region}
         selectedTypes={filterState.types}
         sort={filterState.sort}
         view={view}
         onSearch={setSearch}
+        onRegionUpdate={setRegion}
         onToggleType={toggleType}
         onClearTypes={clearTypes}
         onSort={setSort}
@@ -55,11 +56,15 @@ export const PokeGallery = ({ content }: Props) => {
       />
 
       {paginatedList.length > 0 ? (
-        <Container>
-          {paginatedList.map((pokemon) => (
-            <PokemonCard key={pokemon.id} content={pokemon} />
-          ))}
-        </Container>
+        view === 'grid' ? (
+          <GridContainer>
+            {paginatedList.map((pokemon) => (
+              <PokemonCard key={pokemon.id} content={pokemon} />
+            ))}
+          </GridContainer>
+        ) : (
+          <PokemonTable content={paginatedList} />
+        )
       ) : (
         <div className="col-span-full py-20 text-center">
           <p className="text-zinc-500 italic">

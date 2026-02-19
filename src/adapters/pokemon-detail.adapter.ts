@@ -2,7 +2,7 @@ import { POKEMON_STATS } from '@/constants'
 import {
   ApiLanguage,
   ApiPokemonResponse,
-  Pokemon,
+  PokemonDetail,
   PokeStat,
   PokeType,
 } from '@/types'
@@ -20,7 +20,7 @@ export const adaptPokemon = ({
   stats: apiStats,
   evolution_chain,
   varieties: apiVarieties,
-}: ApiPokemonResponse): Pokemon => {
+}: ApiPokemonResponse): PokemonDetail => {
   const mappedTypes = mapTypes(types)
 
   const artwork = sprites.other['official-artwork']
@@ -34,10 +34,10 @@ export const adaptPokemon = ({
   const evolution =
     evolution_chain && evolution_chain.url
       ? {
-        id: distillEvolutionChainId(evolution_chain.url),
-        url: evolution_chain.url,
-        chain: [],
-      }
+          id: distillEvolutionChainId(evolution_chain.url),
+          url: evolution_chain.url,
+          chain: [],
+        }
       : null
   const varieties = mapVarieties(apiVarieties || [], genus, description)
 
@@ -65,6 +65,8 @@ export const adaptPokemon = ({
     },
   }
 }
+
+const adaptPokemonListItem = () => {}
 
 const distillGenus = (
   genera: ApiPokemonResponse['genera'],
@@ -123,7 +125,15 @@ const mapVarieties = (
   description: string
 ) => {
   return apiVarieties.map((variety) => {
-    const { is_default, pokemon, types, stats, abilities, weight = 0, height = 0 } = variety
+    const {
+      is_default,
+      pokemon,
+      types,
+      stats,
+      abilities,
+      weight = 0,
+      height = 0,
+    } = variety
     const pokemonId = distillEvolutionChainId(pokemon.url)
     return {
       name: pokemon.name.replace(/-/g, ' '),

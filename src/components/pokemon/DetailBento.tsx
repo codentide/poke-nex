@@ -1,19 +1,20 @@
 'use client'
 
 import { getEffectivities } from '@/lib/utils'
-import { Pokemon, PokeVariety } from '@/types'
+import { PokemonDetail, PokeVariety } from '@/types'
 import { TypeBadge } from './TypeBadge'
 import { BentoItem } from './BentoItem'
 
 interface Props {
-  data: Pokemon
+  data: PokemonDetail
   currentVariety?: PokeVariety
 }
 
 export const DetailBento = ({ data, currentVariety }: Props) => {
-  const typesToUse = currentVariety && currentVariety.types.length > 0 
-    ? currentVariety.types 
-    : data.types
+  const typesToUse =
+    currentVariety && currentVariety.types.length > 0
+      ? currentVariety.types
+      : data.types
 
   const { weaknesses, multipliers, resistances, immunities } = getEffectivities(
     typesToUse.map((type) => type.name)
@@ -25,7 +26,6 @@ export const DetailBento = ({ data, currentVariety }: Props) => {
 
   return (
     <div className="w-full lg:w-fit grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-1.5 ">
-      {/* ... (Weaknesses, Resistances, Immunities remain the same using typesToUse) */}
       {/* WEAKNESSES */}
       {weaknesses.length > 0 && (
         <BentoItem title="Weaknesses" full>
@@ -57,7 +57,7 @@ export const DetailBento = ({ data, currentVariety }: Props) => {
       {/* IMMUNITIES */}
       {immunities.length > 0 && (
         <BentoItem title="Immunities" full>
-          <div className="flex items-center gap-2 w-full xs:w-fit">
+          <div className="flex flex-col xs:flex-row flex-wrap justify-center gap-2 w-full">
             {immunities.map((type) => (
               <TypeBadge
                 key={type}
@@ -70,7 +70,10 @@ export const DetailBento = ({ data, currentVariety }: Props) => {
       )}
       <BentoItem title="Weight" description={`${weight.toFixed(1)} KG`} />
       <BentoItem title="Height" description={`${height.toFixed(1)} M`} />
-      <BentoItem title="Category" description={currentVariety ? currentVariety.genus : data.genus} />
+      <BentoItem
+        title="Category"
+        description={currentVariety ? currentVariety.genus : data.genus}
+      />
       <BentoItem title={abilities.length > 1 ? 'Abilities' : 'Ability'}>
         {abilities.map((ability) => (
           <span

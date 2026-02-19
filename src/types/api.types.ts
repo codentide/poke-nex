@@ -19,6 +19,8 @@ export type ApiPokemonSprites = {
 
 // Tipos para Stats, Types y Abilities
 export type ApiPokemonType = { type: { name: string; url: string } }
+export type GQLPokemonType = { type: { name: string } }
+
 export type ApiPokemonStat = { base_stat: number; stat: { name: string } }
 export type ApiPokemonAbility = {
   ability: { name: string }
@@ -77,4 +79,14 @@ export type ApiPokemonResponse = {
   flavor_text_entries?: ApiSpeciesResponse['flavor_text_entries']
   evolution_chain?: ApiSpeciesResponse['evolution_chain']
   varieties?: ApiVariety[]
+}
+
+export type GQLPokemonSummaryList = {
+  data: {
+    pokemon: {
+      id: number
+      name: string
+      pokemontypes: GQLPokemonType[]
+    }[]
+  }
 }

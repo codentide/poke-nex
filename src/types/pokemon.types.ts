@@ -5,6 +5,24 @@ export type PokeType = {
   url: string
 }
 
+export interface PokeRegion {
+  name: RegionName
+  start: number
+  end: number
+}
+
+export type RegionName =
+  | 'kanto'
+  | 'johto'
+  | 'hoenn'
+  | 'sinnoh'
+  | 'unova'
+  | 'kalos'
+  | 'alola'
+  | 'galar'
+  | 'paldea'
+  | 'all'
+
 export type PokeSort = (typeof SORTS)[keyof typeof SORTS]
 
 export type PokeStat = {
@@ -37,7 +55,7 @@ export interface PokeVariety {
 }
 
 // Interfaz final del Pokémon en nuestra App
-export interface Pokemon {
+export interface PokemonDetail {
   id: number
   name: string
   height: number
@@ -56,4 +74,11 @@ export interface Pokemon {
     id: number
     chain: Evolution[]
   } | null
+}
+
+export interface PokemonSummary {
+  id: number
+  name: string
+  types: PokeType['name'][]
+  image: string
 }

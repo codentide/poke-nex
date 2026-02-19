@@ -2,15 +2,12 @@
 
 import { Button } from '../ui/Button'
 import { IoHeart } from 'react-icons/io5'
-import {
-  FavoriteItem,
-  useFavoriteActions,
-  useIsFavorite,
-} from '@/stores/favorite.store'
 import { CgClose } from 'react-icons/cg'
+import { PokemonSummary } from '@/types'
+import { useFavoriteActions, useIsFavorite } from '@/stores/favorite.store'
 
 interface Props {
-  pokemon: FavoriteItem
+  pokemon: PokemonSummary
 }
 
 export const FavoriteButton = ({ pokemon }: Props) => {
