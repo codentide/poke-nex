@@ -10,7 +10,24 @@ export const metadata: Metadata = {
   description:
     'Discover information and statistics about your favorite Pokémon.',
   icons: {
-    icon: { url: '/favicon.svg' },
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
+  openGraph: {
+    title: 'Pokénex PRO',
+    description:
+      'Discover information and statistics about your favorite Pokémon.',
+    url: 'https://poke-nex.vercel.app',
+    siteName: 'Pokénex PRO | Discover',
+    images: [
+      {
+        url: '/pokenex-pro_preview.png',
+        width: 1339,
+        height: 925,
+        alt: 'Pokénex PRO Interface Preview',
+      },
+    ],
   },
 }
 

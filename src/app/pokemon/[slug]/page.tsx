@@ -46,18 +46,32 @@ export default async function PokemonDetailPage({ params }: Props) {
   const type = getMostColorfulType(pokemonData.types.map((t) => t.name))
   const theme = POKE_THEMES[type]
 
+  const JSONLD = {
+    '@context': 'https://schema.org',
+    '@type': 'GameServer',
+    name: pokemonData.name,
+    description: `Details and stats for ${pokemonData.name}`,
+    image: pokemonData.assets.home.default,
+  }
+
   return (
-    <main className="w-full min-h-screen flex flex-col items-center gap-12 px-[4%] py-12 lg:pn-24 ">
-      <PokemonDetailView data={pokemonData} />
-      {pokemonData.evolution && (
-        <Suspense fallback={<EvolutionChainSkeleton />}>
-          <EvolutionChain theme={theme} id={pokemonData.evolution.id} />
-        </Suspense>
-      )}
-      <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-fit">
-        <FavoriteButton pokemon={detailToSummary(pokemonData)} />
-        <ShareButton />
-      </div>
-    </main>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(JSONLD) }}
+      />
+      <main className="w-full min-h-screen flex flex-col items-center gap-12 px-[4%] py-12 lg:pn-24 ">
+        <PokemonDetailView data={pokemonData} />
+        {pokemonData.evolution && (
+          <Suspense fallback={<EvolutionChainSkeleton />}>
+            <EvolutionChain theme={theme} id={pokemonData.evolution.id} />
+          </Suspense>
+        )}
+        <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-fit">
+          <FavoriteButton pokemon={detailToSummary(pokemonData)} />
+          <ShareButton />
+        </div>
+      </main>
+    </>
   )
 }
