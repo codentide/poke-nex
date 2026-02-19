@@ -38,6 +38,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="google-site-verification"
+          content="SQiPI30YGvqJkXYHJwmRf0M2OlqtGUit0bpJqzh-99I"
+        />
+        <meta
+          property="og:image"
+          content="https://poke-nex.vercel.app/pokenex-pro_preview.png"
+        />
+        <meta
+          property="twitter:image"
+          content="https://poke-nex.vercel.app/pokenex-pro_preview.png"
+        />
+      </head>
       <body
         className={`${inter.variable} ${rajdhani.variable} antialiased bg-black`}
       >
