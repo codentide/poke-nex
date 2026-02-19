@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     siteName: 'Pokénex PRO | Discover',
     images: [
       {
-        url: '/pokenex-pro_preview.png',
+        url: 'https://poke-nex.vercel.app/pokenex-pro_preview.png',
         width: 1339,
         height: 925,
         alt: 'Pokénex PRO Interface Preview',
